@@ -1,7 +1,7 @@
 # stocksocket
-
 *Blazing Fast, real-time access to yahoo finance stock data.*
 
+-This module doesn't periodically check for price changes in your tickers, it sends you the changes the instant they happen.
 
 ## Installation
 
