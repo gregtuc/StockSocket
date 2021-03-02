@@ -7,10 +7,9 @@
 
 > Using npm
 > 
+`npm install StockSocket --save`
 
 ## QuickStart
- 
-`npm install StockSocket --save`
 
 ```javascript
 const StockSocket = require("StockSocket");
