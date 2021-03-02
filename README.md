@@ -1,4 +1,4 @@
-# stocksocket
+# Stock Socket
 *Blazing Fast, real-time access to yahoo finance stock data.*
 
 *This module doesn't periodically check for price changes in your tickers, it sends you the changes the instant they happen*
@@ -18,8 +18,9 @@ const StockSocket = require("stocksocket");
 
 StockSocket.start(["TSLA", "NIO", "NNDM", "ETH-USD"], stockPriceChanged);
 
-//Method to be called with each change in price for any of the tickers. You choose what to do with it!
+//Callback method
 function stockPriceChanged(data){
+  //Choose what to do with your data as it comes in.
   console.log(data);
 }
 ```
@@ -28,6 +29,19 @@ function stockPriceChanged(data){
 <p align="left">
   <img src="https://user-images.githubusercontent.com/60011793/109716940-6f147800-7b73-11eb-8991-fc6f414ba6b7.PNG">
 </p>
+
+## Documentation
+```javascript
+StockSocket.start([stocktickers], callback)
+```
+
+**stocktickers** *(type: `Array`)*
+
+Array of objects containing the stock tickers
+
+**callback** *(type: `Function`)*
+
+Callback Function that receives each price update
 
 ## How does it work?
 
