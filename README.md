@@ -23,7 +23,10 @@ function stockPriceChanged(data){
 }
 ```
 ### Output
-![readme-sample](https://user-images.githubusercontent.com/60011793/109716447-e72e6e00-7b72-11eb-904e-3eaa36629207.PNG)
+
+<p align="center">
+  <img width="460" height="300" src="https://user-images.githubusercontent.com/60011793/109716447-e72e6e00-7b72-11eb-904e-3eaa36629207.PNG">
+</p>
 
 ## How does it work?
 
