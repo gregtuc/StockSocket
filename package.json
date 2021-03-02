@@ -1,8 +1,8 @@
 {
-  "name": "StockSocket",
+  "name": "stocksocket",
   "version": "1.0.0",
   "description": "Real-time Yahoo Stock Prices",
-  "main": "index.js",
+  "main": "stocksocket.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
