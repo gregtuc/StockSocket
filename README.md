@@ -45,6 +45,8 @@ Array of objects containing the stock tickers
 
 Callback Function that receives each price update
 
+---
+
 ## How does it work?
 
 * Puppeteer used with MutationObserver in order to scrape data in lightweight fashion from Yahoo.
