@@ -11,9 +11,8 @@
 
 ## QuickStart
 
-<p align="center">
-  ### Code
-</p>
+### Code
+
 ```javascript
 const StockSocket = require("stocksocket");
 
@@ -24,10 +23,8 @@ function stockPriceChanged(data){
   console.log(data);
 }
 ```
+### Output
 
-<p align="center">
-  ### Output
-</p>
 <p align="center">
   <img width="460" height="300" src="https://user-images.githubusercontent.com/60011793/109716447-e72e6e00-7b72-11eb-904e-3eaa36629207.PNG">
 </p>
