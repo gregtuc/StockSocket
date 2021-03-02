@@ -3,9 +3,12 @@
 *Blazing Fast, real-time access to yahoo finance stock data.*
 
 
-## Installation and QuickStart Guide
+## Installation
 
 > Using npm
+> 
+
+##QuickStart
  
 `npm install StockSocket --save`
 
