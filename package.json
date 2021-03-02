@@ -11,7 +11,21 @@
     "url": "git+https://github.com/gregtuc/StockSocket.git"
   },
   "keywords": [
-    "stocks"
+    "stocks",
+    "stock markets",
+    "data",
+    "tickers",
+    "ticker",
+    "yahoo",
+    "free",
+    "prices",
+    "realtime",
+    "real-time",
+    "instant",
+    "stock data",
+    "finance",
+    "yahoo-finance",
+    "stock symbol"
   ],
   "author": "Greg Tucker",
   "license": "ISC",
