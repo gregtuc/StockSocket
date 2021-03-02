@@ -14,7 +14,7 @@ const StockSocket = require("StockSocket");
 
 StockSocket.start(["TSLA", "NIO", "NNDM", "ETH-USD"], stockPriceChanged);
 
-//Method to be called with each change in price for any of the tickers.
+//Method to be called with each change in price for any of the tickers. You choose what to do with it!
 function stockPriceChanged(data){
   console.log(data);
 }
