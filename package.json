@@ -1,0 +1,25 @@
+{
+  "name": "StockSocket",
+  "version": "1.0.0",
+  "description": "Real-time Yahoo Stock Prices",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gregtuc/StockSocket.git"
+  },
+  "keywords": [
+    "stocks"
+  ],
+  "author": "Greg Tucker",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gregtuc/StockSocket/issues"
+  },
+  "homepage": "https://github.com/gregtuc/StockSocket#readme",
+  "dependencies": {
+    "puppeteer": "^8.0.0"
+  }
+}
