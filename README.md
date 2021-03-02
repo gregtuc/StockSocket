@@ -8,7 +8,7 @@
 > Using npm
 > 
 
-##QuickStart
+## QuickStart
  
 `npm install StockSocket --save`
 
