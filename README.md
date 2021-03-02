@@ -1,13 +1,14 @@
 # Stock Socket
-*Blazing Fast, real-time access to yahoo finance stock data.*
 
-*This module doesn't periodically check for price changes in your tickers, it sends you the changes the instant they happen*
+_Blazing Fast, real-time access to yahoo finance stock data._
+
+_This module doesn't periodically check for price changes in your tickers, it sends you the changes the instant they happen_
 
 ## Installation
 
 > Using npm
-> 
-`npm install StockSocket --save`
+>
+> `npm install StockSocket --save`
 
 ## QuickStart
 
@@ -19,11 +20,12 @@ const StockSocket = require("stocksocket");
 StockSocket.start(["TSLA", "NIO", "NNDM", "ETH-USD"], stockPriceChanged);
 
 //Callback method
-function stockPriceChanged(data){
+function stockPriceChanged(data) {
   //Choose what to do with your data as it comes in.
   console.log(data);
 }
 ```
+
 **Output**
 
 <p align="left">
@@ -31,17 +33,18 @@ function stockPriceChanged(data){
 </p>
 
 ## Documentation
+
 ```javascript
-StockSocket.start([stocktickers], callback)
+StockSocket.start([stocktickers], callback);
 ```
 
-**stocktickers** *(type: `Array`)*
+**stocktickers** _(type: `Array`)_
 
 Array of objects containing the stock tickers
 
 ---
 
-**callback** *(type: `Function`)*
+**callback** _(type: `Function`)_
 
 Callback Function that receives each price update
 
@@ -49,6 +52,6 @@ Callback Function that receives each price update
 
 ## How does it work?
 
-* Puppeteer used with MutationObserver in order to scrape data in lightweight fashion from Yahoo.
-* Stock Data returned as fast or faster than shown on the physical Yahoo website.
-* Only a single HTTP request sent per inputted ticker for the duration of runtime.
+- Puppeteer used with MutationObserver in order to scrape data in lightweight fashion from Yahoo.
+- Stock Data returned as fast or faster than shown on the physical Yahoo website.
+- Only a single HTTP request sent per inputted ticker for the duration of runtime.
