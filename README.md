@@ -1,6 +1,6 @@
 # StockSocket
 
-*Blazing Fast, real-time access to yahoo finance stock data.
+*Blazing Fast, real-time access to yahoo finance stock data.*
 
 
 ## Installation
