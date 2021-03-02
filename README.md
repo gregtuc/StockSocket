@@ -11,6 +11,7 @@
 
 ## QuickStart
 
+### Code
 ```javascript
 const StockSocket = require("stocksocket");
 
@@ -21,7 +22,7 @@ function stockPriceChanged(data){
   console.log(data);
 }
 ```
-- What you'll see:
+### Output
 ![readme-sample](https://user-images.githubusercontent.com/60011793/109716447-e72e6e00-7b72-11eb-904e-3eaa36629207.PNG)
 
 ## How does it work?
