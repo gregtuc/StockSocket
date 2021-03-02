@@ -33,9 +33,9 @@ async function startDataFeed(globalticker, callbackFunc) {
     await page.evaluate(function () {
       var target;
       const potentialSelectors = [
+        "#quote-header-info > div.Pos\\(r\\) > div > p > span",
         "#quote-header-info > div.Pos\\(r\\) > div > div > span",
         "#quote-header-info > div.D\\(ib\\) > div > div > span",
-        "#quote-header-info > div.Pos\\(r\\) > div > p > span",
       ];
 
       //Find correct query selector.
