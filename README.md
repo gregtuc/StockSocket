@@ -25,7 +25,7 @@ function stockPriceChanged(data){
 ```
 ### Output
 
-<p align="center">
+<p align="left">
   <img src="https://user-images.githubusercontent.com/60011793/109716940-6f147800-7b73-11eb-8991-fc6f414ba6b7.PNG">
 </p>
 
