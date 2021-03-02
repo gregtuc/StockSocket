@@ -12,7 +12,7 @@
 ## QuickStart
 
 ```javascript
-const StockSocket = require("StockSocket");
+const StockSocket = require("stocksocket");
 
 StockSocket.start(["TSLA", "NIO", "NNDM", "ETH-USD"], stockPriceChanged);
 
