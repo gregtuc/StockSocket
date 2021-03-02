@@ -39,6 +39,8 @@ StockSocket.start([stocktickers], callback)
 
 Array of objects containing the stock tickers
 
+---
+
 **callback** *(type: `Function`)*
 
 Callback Function that receives each price update
