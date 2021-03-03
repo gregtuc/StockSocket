@@ -50,6 +50,22 @@ Callback Function that receives each price update
 
 ---
 
+```javascript
+StockSocket.addTicker(stockticker, callback);
+```
+
+**stockticker** _(type: `String`)_
+
+String object containing a stock ticker to be added.
+
+---
+
+**callback** _(type: `Function`)_
+
+Callback Function that receives each price update
+
+---
+
 ## How does it work?
 
 - Puppeteer used with MutationObserver in order to scrape data in lightweight fashion from Yahoo.
