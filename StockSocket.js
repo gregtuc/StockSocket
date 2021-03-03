@@ -16,6 +16,11 @@ async function start(tickers, callbackFunc) {
   }
 }
 
+async function addTicker(ticker, callbackFunc) {
+  globaltickers.push({ ticker: ticker, price: 0 });
+  startDataFeed(globaltickers[globaltickers.length - 1], callbackFunc);
+}
+
 async function startDataFeed(globalticker, callbackFunc) {
   try {
     //Configure Puppeteer.
@@ -73,4 +78,4 @@ async function startDataFeed(globalticker, callbackFunc) {
   }
 }
 
-module.exports = { start };
+module.exports = { start, addTicker };
