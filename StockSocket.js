@@ -4,7 +4,7 @@ const puppeteer = require("puppeteer");
 //So-called Global Variables.
 var globaltickers = [];
 
-async function start(tickers, callbackFunc) {
+async function addTickers(tickers, callbackFunc) {
   //Organize global tickers.
   for (var i = 0; i < tickers.length; i++) {
     globaltickers.push({ ticker: tickers[i], price: 0 });
@@ -78,4 +78,4 @@ async function startDataFeed(globalticker, callbackFunc) {
   }
 }
 
-module.exports = { start, addTicker };
+module.exports = { addTickers, addTicker };

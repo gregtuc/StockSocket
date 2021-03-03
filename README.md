@@ -21,7 +21,7 @@ _This module doesn't periodically check for price changes in your tickers, it se
 ```javascript
 const StockSocket = require("stocksocket");
 
-StockSocket.start(["TSLA", "NIO", "NNDM", "ETH-USD"], stockPriceChanged);
+StockSocket.addTickers(["TSLA", "NIO", "NNDM", "ETH-USD"], stockPriceChanged);
 
 //Callback method
 function stockPriceChanged(data) {
@@ -39,7 +39,7 @@ function stockPriceChanged(data) {
 ## Documentation
 
 ```javascript
-StockSocket.start([stocktickers], callback);
+StockSocket.addTickers([stocktickers], callback);
 ```
 
 **stocktickers** _(type: `Array`)_
