@@ -39,9 +39,9 @@ function stockPriceChanged(data) {
 ## Documentation
 
 ```javascript
+//Start sending stock data for a list of tickers to the callback.
 StockSocket.addTickers([stocktickers], callback);
 ```
-_Start getting stock data for more than one ticker._
 
 **stocktickers** _(type: `Array`)_
 
@@ -56,9 +56,9 @@ Callback Function that receives each price update
 ---
 
 ```javascript
+//Start sending stock data for a specific ticker to the callback.
 StockSocket.addTicker(stockticker, callback);
 ```
-_Start getting stock data for a ticker._
 
 **stockticker** _(type: `String`)_
 
