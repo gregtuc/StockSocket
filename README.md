@@ -2,7 +2,7 @@
 
 _Blazing Fast, real-time access to yahoo finance stock data._
 
-_This module doesn't periodically check for price changes in your tickers, it sends you the changes the instant they happen_
+_This module doesn't periodically check for price changes in your tickers -it sends you the price changes the instant they happen._
 
 [![npm](https://img.shields.io/npm/v/stocksocket.svg)](https://www.npmjs.com/package/stocksocket)
 [![npm](https://img.shields.io/npm/dm/stocksocket.svg)](https://www.npmjs.com/package/stocksocket)
@@ -11,8 +11,8 @@ _This module doesn't periodically check for price changes in your tickers, it se
 ## Installation
 
 > Using npm
->
-> `npm install StockSocket --save`
+
+`npm install StockSocket --save`
 
 ## QuickStart
 
@@ -39,6 +39,7 @@ function stockPriceChanged(data) {
 ## Documentation
 
 ```javascript
+//Start sending stock data for a list of tickers to the callback.
 StockSocket.addTickers([stocktickers], callback);
 ```
 
@@ -55,6 +56,7 @@ Callback Function that receives each price update
 ---
 
 ```javascript
+//Start sending stock data for a specific ticker to the callback.
 StockSocket.addTicker(stockticker, callback);
 ```
 
