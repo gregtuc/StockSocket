@@ -4,7 +4,7 @@
   "description": "Real-time Yahoo Stock Prices",
   "main": "stocksocket.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -35,5 +35,12 @@
   "homepage": "https://github.com/gregtuc/StockSocket#readme",
   "dependencies": {
     "puppeteer": "^8.0.0"
+  },
+  "devDependencies": {
+    "assert": "^2.0.0",
+    "chromedriver": "^88.0.0",
+    "mocha": "^8.3.0",
+    "request": "^2.88.2",
+    "selenium-webdriver": "^4.0.0-beta.1"
   }
 }
