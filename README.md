@@ -11,6 +11,7 @@ _This module doesn't periodically check for price changes in your tickers -it se
 ## Installation
 
 > Using npm
+
 `npm install StockSocket --save`
 
 ## QuickStart
