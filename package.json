@@ -1,6 +1,6 @@
 {
   "name": "stocksocket",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Real-time Yahoo Stock Prices",
   "main": "stocksocket.js",
   "scripts": {
