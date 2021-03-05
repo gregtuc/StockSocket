@@ -133,3 +133,7 @@ StockSocket.removeAllTickers();
 ```
 
 ---
+
+## License
+
+  [MIT](LICENSE)
