@@ -13,7 +13,6 @@ const StockSocket = require("stocksocket");
 
 StockSocket.addTickers(["TSLA", "NIO", "NNDM", "ETH-USD"], stockPriceChanged);
 
-//Callback method
 function stockPriceChanged(data) {
   //Choose what to do with your data as it comes in.
   console.log(data);
