@@ -41,8 +41,12 @@ $ npm install stocksocket
 - Any mutations in the price are sent back to the function passed by the user (you) using a key-value pair format of "ticker" : price.
 - Since the MutationObserver collects the data, only a single request is sent per ticker for the duration of runtime! In other words, you aren't hassling Yahoo with large amounts of HTTP requests. 
 
-## Docs
+## Sample Output
+<p align="left">
+  <img src="https://user-images.githubusercontent.com/60011793/109716940-6f147800-7b73-11eb-8991-fc6f414ba6b7.PNG">
+</p>
 
+## Docs
 
 ### addTicker(stockticker, callback)
 _Start data stream for a specific ticker_
