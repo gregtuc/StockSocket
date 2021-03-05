@@ -10,9 +10,18 @@ _This module doesn't periodically check for price changes in your tickers -it se
 
 ## Installation
 
-> Using npm
+This is a [Node.js](https://nodejs.org/en/) module available through the
+[npm registry](https://www.npmjs.com/).
 
-`npm install StockSocket --save`
+If this is a brand new project, make sure to create a `package.json` first with
+the [`npm init` command](https://docs.npmjs.com/creating-a-package-json-file).
+
+Installation is done using the
+[`npm install` command](https://docs.npmjs.com/getting-started/installing-npm-packages-locally):
+
+```bash
+$ npm install StockSocket
+```
 
 ## QuickStart
 
