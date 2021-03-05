@@ -18,10 +18,6 @@ function stockPriceChanged(data) {
   console.log(data);
 }
 ```
-## Sample Output
-<p align="center">
-  <img src="https://user-images.githubusercontent.com/60011793/109716940-6f147800-7b73-11eb-8991-fc6f414ba6b7.PNG">
-</p>
 
 ## Installation
 
