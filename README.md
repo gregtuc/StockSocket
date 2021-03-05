@@ -49,28 +49,6 @@ $ npm install stocksocket
 
 ## Docs
 
-### addTickers([stocktickers], callback)
-_Start data stream for an array of tickers_
-
-```javascript
-var stocktickers = ["TSLA", "NNDM", "AAPL", "MARA"];
-
-StockSocket.addTickers(stocktickers, stockPriceChanged);
-
-function stockPriceChanged(data) {
-  console.log(data);
-}
-```
-
-**stocktickers** _(type: `Array`)_
-
-Array of string objects containing the stock tickers
-
-**callback** _(type: `Function`)_
-
-Callback Function that receives each price update
-
----
 
 ### addTicker(stockticker, callback)
 _Start data stream for a specific ticker_
@@ -88,6 +66,29 @@ function stockPriceChanged(data) {
 **stockticker** _(type: `String`)_
 
 String object containing a stock ticker to be added.
+
+**callback** _(type: `Function`)_
+
+Callback Function that receives each price update
+
+---
+
+### addTickers([stocktickers], callback)
+_Start data stream for an array of tickers_
+
+```javascript
+var stocktickers = ["TSLA", "NNDM", "AAPL", "MARA"];
+
+StockSocket.addTickers(stocktickers, stockPriceChanged);
+
+function stockPriceChanged(data) {
+  console.log(data);
+}
+```
+
+**stocktickers** _(type: `Array`)_
+
+Array of string objects containing the stock tickers
 
 **callback** _(type: `Function`)_
 
