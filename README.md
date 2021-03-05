@@ -20,7 +20,7 @@ Installation is done using the
 [`npm install` command](https://docs.npmjs.com/getting-started/installing-npm-packages-locally):
 
 ```bash
-$ npm install StockSocket
+$ npm install stocksocket
 ```
 
 ## QuickStart
