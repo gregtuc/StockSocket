@@ -8,6 +8,18 @@ _This module doesn't periodically check for price changes in your tickers -it se
 [![npm](https://img.shields.io/npm/dm/stocksocket.svg)](https://www.npmjs.com/package/stocksocket)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/gregtuc/StockSocket/graphs/commit-activity)
 
+```javascript
+const StockSocket = require("stocksocket");
+
+StockSocket.addTickers(["TSLA", "NIO", "NNDM", "ETH-USD"], stockPriceChanged);
+
+//Callback method
+function stockPriceChanged(data) {
+  //Choose what to do with your data as it comes in.
+  console.log(data);
+}
+```
+
 ## Installation
 
 This is a [Node.js](https://nodejs.org/en/) module available through the
@@ -21,22 +33,6 @@ Installation is done using the
 
 ```bash
 $ npm install stocksocket
-```
-
-## QuickStart
-
-**Code**
-
-```javascript
-const StockSocket = require("stocksocket");
-
-StockSocket.addTickers(["TSLA", "NIO", "NNDM", "ETH-USD"], stockPriceChanged);
-
-//Callback method
-function stockPriceChanged(data) {
-  //Choose what to do with your data as it comes in.
-  console.log(data);
-}
 ```
 
 **Output**
