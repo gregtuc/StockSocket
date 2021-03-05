@@ -18,6 +18,11 @@ function stockPriceChanged(data) {
   console.log(data);
 }
 ```
+...
+
+<p align="left">
+  <img src="https://user-images.githubusercontent.com/60011793/109716940-6f147800-7b73-11eb-8991-fc6f414ba6b7.PNG">
+</p>
 
 ## Installation
 
@@ -33,12 +38,6 @@ Installation is done using the
 ```bash
 $ npm install stocksocket
 ```
-
-## Sample Outpput
-
-<p align="left">
-  <img src="https://user-images.githubusercontent.com/60011793/109716940-6f147800-7b73-11eb-8991-fc6f414ba6b7.PNG">
-</p>
 
 ## How does it work?
 
