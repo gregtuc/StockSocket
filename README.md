@@ -34,7 +34,7 @@ Installation is done using the
 $ npm install stocksocket
 ```
 
-**Output**
+## Sample Outpput
 
 <p align="left">
   <img src="https://user-images.githubusercontent.com/60011793/109716940-6f147800-7b73-11eb-8991-fc6f414ba6b7.PNG">
@@ -47,7 +47,7 @@ $ npm install stocksocket
 - Any mutations in the price are sent back to the function passed by the user (you) using a key-value pair format of "ticker" : price.
 - Since the MutationObserver collects the data, only a single request is sent per ticker for the duration of runtime! In other words, you aren't hassling Yahoo with large amounts of HTTP requests. 
 
-## Documentation
+## Docs
 
 ```javascript
 //Start sending stock data for a list of tickers to the callback.
@@ -57,8 +57,6 @@ StockSocket.addTickers([stocktickers], callback);
 **stocktickers** _(type: `Array`)_
 
 Array of string objects containing the stock tickers
-
----
 
 **callback** _(type: `Function`)_
 
@@ -74,8 +72,6 @@ StockSocket.addTicker(stockticker, callback);
 **stockticker** _(type: `String`)_
 
 String object containing a stock ticker to be added.
-
----
 
 **callback** _(type: `Function`)_
 
