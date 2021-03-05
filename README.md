@@ -49,9 +49,15 @@ $ npm install stocksocket
 
 ## Docs
 
+### addTickers([stocktickers], callback)
 ```javascript
-//Start sending stock data for a list of tickers to the callback.
-StockSocket.addTickers([stocktickers], callback);
+var stocktickers = ["TSLA", "NNDM", "AAPL", "MARA"];
+
+function stockPriceChanged(data) {
+  console.log(data);
+}
+
+StockSocket.addTickers(stocktickers, stockPriceChanged);
 ```
 
 **stocktickers** _(type: `Array`)_
