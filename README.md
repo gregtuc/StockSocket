@@ -36,6 +36,13 @@ function stockPriceChanged(data) {
   <img src="https://user-images.githubusercontent.com/60011793/109716940-6f147800-7b73-11eb-8991-fc6f414ba6b7.PNG">
 </p>
 
+## How does it work?
+
+- For each ticker inputted, a single chromium page is opened in headless fashion using Puppeteer.
+- Each page has a [MutationObserver](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver) inserted that checks for price changes on Yahoo.
+- Any mutations in the price are sent back to the function passed by the user (you) using a key-value pair format of "ticker" : price.
+- Since the MutationObserver collects the data, only a single request is sent per ticker for the duration of runtime! In other words, you aren't hassling Yahoo with large amounts of HTTP requests. 
+
 ## Documentation
 
 ```javascript
@@ -45,7 +52,7 @@ StockSocket.addTickers([stocktickers], callback);
 
 **stocktickers** _(type: `Array`)_
 
-Array of objects containing the stock tickers
+Array of string objects containing the stock tickers
 
 ---
 
@@ -72,8 +79,31 @@ Callback Function that receives each price update
 
 ---
 
-## How does it work?
+```javascript
+//Stop data stream for a specific ticker.
+StockSocket.removeTicker(stockticker);
+```
 
-- Puppeteer used with MutationObserver in order to scrape data in lightweight fashion from Yahoo.
-- Stock Data returned as fast or faster than shown on the physical Yahoo website.
-- Only a single HTTP request sent per inputted ticker for the duration of runtime.
+**stockticker** _(type: `String`)_
+
+String object containing a stock ticker to be added.
+
+---
+
+```javascript
+//Stop data stream for various tickers.
+StockSocket.removeTickers([stocktickers]);
+```
+
+**stocktickers** _(type: `Array`)_
+
+Array of string objects containing the stock tickers to be removed.
+
+---
+
+```javascript
+//Stop data stream for all tickers.
+StockSocket.removeAllTickers();
+```
+
+---
