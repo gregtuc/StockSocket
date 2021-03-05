@@ -50,14 +50,16 @@ $ npm install stocksocket
 ## Docs
 
 ### addTickers([stocktickers], callback)
+_Start data stream for an array of tickers_
+
 ```javascript
 var stocktickers = ["TSLA", "NNDM", "AAPL", "MARA"];
+
+StockSocket.addTickers(stocktickers, stockPriceChanged);
 
 function stockPriceChanged(data) {
   console.log(data);
 }
-
-StockSocket.addTickers(stocktickers, stockPriceChanged);
 ```
 
 **stocktickers** _(type: `Array`)_
@@ -70,9 +72,17 @@ Callback Function that receives each price update
 
 ---
 
+### addTicker(stockticker, callback)
+_Start data stream for a specific ticker_
+
 ```javascript
-//Start sending stock data for a specific ticker to the callback.
-StockSocket.addTicker(stockticker, callback);
+var stockticker = "TSLA";
+
+StockSocket.addTicker(stockticker, stockPriceChanged);
+
+function stockPriceChanged(data) {
+  console.log(data);
+}
 ```
 
 **stockticker** _(type: `String`)_
@@ -85,8 +95,11 @@ Callback Function that receives each price update
 
 ---
 
+### removeTicker(stockticker)
+_Stop data stream for a specific ticker._
 ```javascript
-//Stop data stream for a specific ticker.
+var stockticker = "TSLA";
+
 StockSocket.removeTicker(stockticker);
 ```
 
@@ -96,9 +109,13 @@ String object containing a stock ticker to be added.
 
 ---
 
+### removeTickers([stocktickers])
+_Stop data stream for various tickers_
+
 ```javascript
-//Stop data stream for various tickers.
-StockSocket.removeTickers([stocktickers]);
+var stocktickers = ["TSLA", "NNDM", "AAPL", "MARA"];
+
+StockSocket.removeTickers(stocktickers);
 ```
 
 **stocktickers** _(type: `Array`)_
@@ -107,8 +124,10 @@ Array of string objects containing the stock tickers to be removed.
 
 ---
 
+### removeAllTickers()
+_Stop data stream for all tickers_
+
 ```javascript
-//Stop data stream for all tickers.
 StockSocket.removeAllTickers();
 ```
 
