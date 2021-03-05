@@ -1,41 +1,79 @@
 "use strict";
 const puppeteer = require("puppeteer");
 
-//So-called Global Variables.
-var globaltickers = [];
+var browser;
+var tickersArray = [];
+var pagesArray = {};
 
 async function addTickers(tickers, callbackFunc) {
-  //Organize global tickers.
-  for (var i = 0; i < tickers.length; i++) {
-    globaltickers.push({ ticker: tickers[i], price: 0 });
+  //If browser has not been declared, launch it.
+  if (browser == undefined) {
+    browser = await puppeteer.launch();
   }
-
-  //Launch puppeteer and mutation observers for each ticker.
-  for (var i = 0; i < globaltickers.length; i++) {
-    startDataFeed(globaltickers[i], callbackFunc);
+  //Format the inputted tickers and add them to tickersArray.
+  for (var i = 0; i < tickers.length; i++) {
+    tickersArray.push({ symbol: tickers[i], price: 0 });
+  }
+  //Begin operations on each ticker in tickersArray.
+  for (var i = 0; i < tickersArray.length; i++) {
+    startDataFeed(tickersArray[i], callbackFunc);
   }
 }
 
 async function addTicker(ticker, callbackFunc) {
-  globaltickers.push({ ticker: ticker, price: 0 });
-  startDataFeed(globaltickers[globaltickers.length - 1], callbackFunc);
+  //If browser has not been declared, launch it.
+  if (browser == undefined) {
+    browser = await puppeteer.launch();
+  }
+
+  //Push the new ticker to tickersArray.
+  tickersArray.push({ symbol: ticker, price: 0 });
+
+  //Begin operations on the new ticker.
+  startDataFeed(tickersArray[tickersArray.length - 1], callbackFunc);
 }
 
-async function startDataFeed(globalticker, callbackFunc) {
+//Stop data for a specific ticker.
+async function removeTicker(ticker) {
+  for (var key in pagesArray) {
+    if (key == ticker) {
+      await pagesArray[key].close();
+      delete pagesArray[key];
+      break;
+    }
+  }
+}
+
+//Stop data for a list of tickers.
+async function removeTickers(tickers) {
+  for (var i = 0; i < tickers.length; i++) {
+    removeTicker(tickers[i]);
+  }
+}
+
+//Stop data for all tickers.
+async function removeAllTickers() {
+  for (var key in pagesArray) {
+    await pagesArray[key].close();
+    delete pagesArray[key];
+  }
+}
+
+async function startDataFeed(ticker, callbackFunc) {
   try {
-    //Configure Puppeteer.
-    const browser = await puppeteer.launch();
-    const page = await browser.newPage();
-    var url = `https://ca.finance.yahoo.com/quote/${globalticker.ticker}?p=${globalticker.ticker}`;
-    await page.setBypassCSP(true);
-    await page.goto(url);
-    await page.exposeFunction(
+    //Configure Puppeteer page.
+    pagesArray[ticker.symbol] = await browser.newPage();
+    await pagesArray[ticker.symbol].setBypassCSP(true);
+    await pagesArray[ticker.symbol].goto(
+      `https://ca.finance.yahoo.com/quote/${ticker.symbol}?p=${ticker.symbol}`
+    );
+    await pagesArray[ticker.symbol].exposeFunction(
       "puppeteerMutationListener",
       puppeteerMutationListener
     );
 
     //Evaluate the page.
-    await page.evaluate(function () {
+    await pagesArray[ticker.symbol].evaluate(function () {
       var target;
       const potentialSelectors = [
         "#quote-header-info > div.Pos\\(r\\) > div.D\\(ib\\) > p > span",
@@ -52,13 +90,15 @@ async function startDataFeed(globalticker, callbackFunc) {
         }
       }
 
-      //Initiate mutation observer.
-      new MutationObserver((mutationsList) => {
+      //Initiatialize mutation observer.
+      var observer = new MutationObserver((mutationsList) => {
         for (const mutation of mutationsList) {
-          console.log(mutation);
           puppeteerMutationListener(mutation.target.textContent);
         }
-      }).observe(target, {
+      });
+
+      //Activate mutation observer.
+      observer.observe(target, {
         attributes: true,
         childList: true,
         characterData: true,
@@ -71,11 +111,17 @@ async function startDataFeed(globalticker, callbackFunc) {
 
   //Take action on the observed price mutation.
   function puppeteerMutationListener(data) {
-    if (globalticker.price != data) {
-      globalticker.price = data;
-      callbackFunc(globalticker);
+    if (ticker.price != data) {
+      ticker.price = data;
+      callbackFunc(ticker);
     }
   }
 }
 
-module.exports = { addTickers, addTicker };
+module.exports = {
+  addTickers,
+  addTicker,
+  removeTicker,
+  removeTickers,
+  removeAllTickers,
+};
