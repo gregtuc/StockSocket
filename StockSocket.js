@@ -88,20 +88,21 @@ async function startDataFeed(ticker, callbackFunc) {
         }
       }
 
-      //Initiatialize mutation observer.
-      var observer = new MutationObserver((mutationsList) => {
-        for (const mutation of mutationsList) {
-          puppeteerMutationListener(mutation.target.textContent);
-        }
-      });
-
-      //Activate mutation observer.
-      observer.observe(target, {
-        attributes: true,
-        childList: true,
-        characterData: true,
-        subtree: true,
-      });
+      if (target != undefined) {
+        //Initiatialize mutation observer.
+        var observer = new MutationObserver((mutationsList) => {
+          for (const mutation of mutationsList) {
+            puppeteerMutationListener(mutation.target.textContent);
+          }
+        });
+        //Activate mutation observer.
+        observer.observe(target, {
+          attributes: true,
+          childList: true,
+          characterData: true,
+          subtree: true,
+        });
+      }
     });
   } catch (err) {
     console.log(err);
