@@ -38,7 +38,7 @@ $ npm install stocksocket
 
 - For each ticker inputted, a single chromium page is opened in headless fashion using Puppeteer.
 - Each page has a [MutationObserver](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver) inserted that checks for price changes on Yahoo.
-- Any mutations in the price are sent back to the function passed by the user (you) using a key-value pair format of "ticker" : price.
+- Any mutations in the price are sent back to the function passed by the user (you) using key-value pair format.
 - Since the MutationObserver collects the data, only a single request is sent per ticker for the duration of runtime! In other words, you aren't hassling Yahoo with large amounts of HTTP requests. 
 
 ## Sample Output
