@@ -3,7 +3,7 @@ const { Builder, By, Key, until } = require("selenium-webdriver");
 const assert = require("assert");
 require("chromedriver");
 
-describe("StandardMarketStockSelectorTest", function () {
+describe("PostMarketStockSelectorTest", function () {
   this.timeout(30000);
   let driver;
   let vars;
@@ -14,10 +14,12 @@ describe("StandardMarketStockSelectorTest", function () {
   afterEach(async function () {
     await driver.quit();
   });
-  it("StandardMarketStockTest", async function () {
+  it("PostMarketSelectorTest", async function () {
     await driver.get("https://finance.yahoo.com/quote/TSLA/");
     {
-      const elements = await driver.findElements(By.css(".Fz\\(36px\\)"));
+      const elements = await driver.findElements(
+        By.xpath('//*[@id="quote-header-info"]/div[3]/div[1]/p/span[1]')
+      );
       assert(elements.length);
     }
   });
