@@ -10,13 +10,10 @@ async function addTickers(tickers, callbackFunc) {
   if (browser == undefined) {
     browser = await puppeteer.launch();
   }
-  //Format the inputted tickers and add them to tickersArray.
+  //Format the inputted tickers, add them to tickersArray, begin operations.
   for (var i = 0; i < tickers.length; i++) {
     tickersArray.push({ symbol: tickers[i], price: 0 });
-  }
-  //Begin operations on each ticker in tickersArray.
-  for (var i = 0; i < tickersArray.length; i++) {
-    startDataFeed(tickersArray[i], callbackFunc);
+    startDataFeed(tickersArray[tickersArray.length - 1], callbackFunc);
   }
 }
 
