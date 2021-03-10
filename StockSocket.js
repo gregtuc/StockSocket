@@ -75,17 +75,18 @@ async function startDataFeed(ticker, callbackFunc) {
     //Evaluate the page.
     await pagesArray[ticker.symbol].evaluate(function () {
       var target;
-      const potentialSelectors = [
-        "#quote-header-info > div.Pos\\(r\\) > div.D\\(ib\\) > p > span",
-        "#quote-header-info > div.Pos\\(r\\) > div > p > span",
-        "#quote-header-info > div.Pos\\(r\\) > div > div > span",
-        "#quote-header-info > div.D\\(ib\\) > div > div > span",
-      ];
+      const potentialSelectors = {
+        premarket:
+          "#quote-header-info > div.Pos\\(r\\) > div.D\\(ib\\) > p > span",
+        regmarket: "#quote-header-info > div.Pos\\(r\\) > div > p > span",
+        postmarket: "#quote-header-info > div.Pos\\(r\\) > div > div > span",
+        crypto: "#quote-header-info > div.D\\(ib\\) > div > div > span",
+      };
 
       //Find correct query selector.
-      for (var i = 0; i < potentialSelectors.length; i++) {
-        if (document.querySelector(potentialSelectors[i])) {
-          target = document.querySelector(potentialSelectors[i]);
+      for (var key in potentialSelectors) {
+        if (document.querySelector(potentialSelectors[key])) {
+          target = document.querySelector(potentialSelectors[key]);
           break;
         }
       }
