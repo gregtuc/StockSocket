@@ -1,11 +1,17 @@
 "use strict";
+
+import { Browser, Page } from "puppeteer";
+
 const puppeteer = require("puppeteer");
 
-var browser;
-var tickersArray = [];
-var pagesArray = {};
+var browser: Browser;
+var pagesArray: { [key: string]: Page };
+var tickersArray: { symbol: string; price: number }[];
 
-async function addTickers(tickers, callbackFunc) {
+async function addTickers(
+  tickers: string[],
+  callback: (...args: any[]) => void
+) {
   //If browser has not been declared, launch it.
   if (browser == undefined) {
     browser = await puppeteer.launch();
@@ -13,11 +19,11 @@ async function addTickers(tickers, callbackFunc) {
   //Format the inputted tickers, add them to tickersArray, begin operations.
   for (var i = 0; i < tickers.length; i++) {
     tickersArray.push({ symbol: tickers[i], price: 0 });
-    startDataFeed(tickersArray[tickersArray.length - 1], callbackFunc);
+    startDataFeed(tickersArray[tickersArray.length - 1], callback);
   }
 }
 
-async function addTicker(ticker, callbackFunc) {
+async function addTicker(ticker: string, callback: (...args: any[]) => void) {
   //If browser has not been declared, launch it.
   if (browser == undefined) {
     browser = await puppeteer.launch();
@@ -27,11 +33,11 @@ async function addTicker(ticker, callbackFunc) {
   tickersArray.push({ symbol: ticker, price: 0 });
 
   //Begin operations on the new ticker.
-  startDataFeed(tickersArray[tickersArray.length - 1], callbackFunc);
+  startDataFeed(tickersArray[tickersArray.length - 1], callback);
 }
 
 //Stop data for a specific ticker.
-async function removeTicker(ticker) {
+async function removeTicker(ticker: string) {
   for (var key in pagesArray) {
     if (key == ticker) {
       await pagesArray[key].close();
@@ -42,7 +48,7 @@ async function removeTicker(ticker) {
 }
 
 //Stop data for a list of tickers.
-async function removeTickers(tickers) {
+async function removeTickers(tickers: string[]) {
   for (var i = 0; i < tickers.length; i++) {
     removeTicker(tickers[i]);
   }
@@ -56,7 +62,10 @@ async function removeAllTickers() {
   }
 }
 
-async function startDataFeed(ticker, callbackFunc) {
+async function startDataFeed(
+  ticker: { symbol: string; price: number },
+  callback: (...args: any[]) => void
+) {
   try {
     //Configure Puppeteer page.
     pagesArray[ticker.symbol] = await browser.newPage();
@@ -72,7 +81,7 @@ async function startDataFeed(ticker, callbackFunc) {
     //Evaluate the page.
     await pagesArray[ticker.symbol].evaluate(function () {
       var target;
-      const potentialSelectors = {
+      const potentialSelectors: { [key: string]: string } = {
         premarket:
           "#quote-header-info > div.Pos\\(r\\) > div.D\\(ib\\) > p > span",
         regmarket: "#quote-header-info > div.Pos\\(r\\) > div > p > span",
@@ -109,10 +118,10 @@ async function startDataFeed(ticker, callbackFunc) {
   }
 
   //Take action on the observed price mutation.
-  function puppeteerMutationListener(data) {
-    if (ticker.price != data) {
-      ticker.price = data;
-      callbackFunc(ticker);
+  function puppeteerMutationListener(data: string | null) {
+    if (ticker.price != Number(data)) {
+      ticker.price = Number(data);
+      callback(ticker);
     }
   }
 }
