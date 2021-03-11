@@ -1,32 +1,43 @@
 "use strict";
 
-import { Browser, Page } from "puppeteer";
-
-const puppeteer = require("puppeteer");
-
+import { Browser, Page, launch } from "puppeteer";
 var browser: Browser;
-var pagesArray: { [key: string]: Page };
-var tickersArray: { symbol: string; price: number }[];
+
+//Pages Array
+interface IPagesArray {
+  [key: string]: Page;
+}
+var pagesArray: IPagesArray;
+pagesArray = {};
+
+//Tickers Array
+interface ITickersArray {
+  symbol: string;
+  price: number;
+}
+var tickersArray: ITickersArray[];
+tickersArray = [];
 
 async function addTickers(
-  tickers: string[],
-  callback: (...args: any[]) => void
+  tickers: Array<string>,
+  callback: (arg0: object) => void
 ) {
   //If browser has not been declared, launch it.
   if (browser == undefined) {
-    browser = await puppeteer.launch();
+    browser = await launch();
   }
   //Format the inputted tickers, add them to tickersArray, begin operations.
   for (var i = 0; i < tickers.length; i++) {
-    tickersArray.push({ symbol: tickers[i], price: 0 });
+    var tickerObject: ITickersArray = { symbol: tickers[i], price: 0 };
+    tickersArray.push(tickerObject);
     startDataFeed(tickersArray[tickersArray.length - 1], callback);
   }
 }
 
-async function addTicker(ticker: string, callback: (...args: any[]) => void) {
+async function addTicker(ticker: string, callback: (arg0: object) => void) {
   //If browser has not been declared, launch it.
   if (browser == undefined) {
-    browser = await puppeteer.launch();
+    browser = await launch();
   }
 
   //Push the new ticker to tickersArray.
@@ -48,7 +59,7 @@ async function removeTicker(ticker: string) {
 }
 
 //Stop data for a list of tickers.
-async function removeTickers(tickers: string[]) {
+async function removeTickers(tickers: Array<string>) {
   for (var i = 0; i < tickers.length; i++) {
     removeTicker(tickers[i]);
   }
@@ -64,7 +75,7 @@ async function removeAllTickers() {
 
 async function startDataFeed(
   ticker: { symbol: string; price: number },
-  callback: (...args: any[]) => void
+  callback: (arg0: object) => void
 ) {
   try {
     //Configure Puppeteer page.
@@ -119,8 +130,12 @@ async function startDataFeed(
 
   //Take action on the observed price mutation.
   function puppeteerMutationListener(data: string | null) {
-    if (ticker.price != Number(data)) {
-      ticker.price = Number(data);
+    var parsedData: any = data;
+    parsedData = parsedData.replace(/\,/g, "");
+    parsedData = parseFloat(parsedData);
+
+    if (ticker.price != parsedData) {
+      ticker.price = parsedData;
       callback(ticker);
     }
   }
