@@ -98,11 +98,11 @@ async function startDataFeed(
             "#consent-page > div > div > div > form > div.wizard-body > div.actions.couple > button"
           )
         ) {
-          document
-            .querySelector(
-              "#consent-page > div > div > div > form > div.wizard-body > div.actions.couple > button"
-            )
-            .click();
+          var element = document.querySelector(
+            "#consent-page > div > div > div > form > div.wizard-body > div.actions.couple > button"
+          ) as HTMLElement;
+          element.click();
+
           return;
         }
       } catch (e) {
