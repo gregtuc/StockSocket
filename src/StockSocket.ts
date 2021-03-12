@@ -81,15 +81,39 @@ async function startDataFeed(
     //Configure Puppeteer page.
     pagesArray[ticker.symbol] = await browser.newPage();
     await pagesArray[ticker.symbol].setBypassCSP(true);
+    await pagesArray[ticker.symbol].setDefaultNavigationTimeout(0);
     await pagesArray[ticker.symbol].goto(
-      `https://ca.finance.yahoo.com/quote/${ticker.symbol}?p=${ticker.symbol}`
+      `https://finance.yahoo.com/quote/${ticker.symbol}?p=${ticker.symbol}`
     );
     await pagesArray[ticker.symbol].exposeFunction(
       "puppeteerMutationListener",
       puppeteerMutationListener
     );
 
-    //Evaluate the page.
+    //Eliminate consent page if outside of North America
+    await pagesArray[ticker.symbol].evaluate(function () {
+      try {
+        if (
+          document.querySelector(
+            "#consent-page > div > div > div > form > div.wizard-body > div.actions.couple > button"
+          )
+        ) {
+          document
+            .querySelector(
+              "#consent-page > div > div > div > form > div.wizard-body > div.actions.couple > button"
+            )
+            .click();
+          return;
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    });
+
+    //Wait for proper page to load.
+    await pagesArray[ticker.symbol].waitForSelector("#quote-header-info");
+
+    //Evaluate the actual page.
     await pagesArray[ticker.symbol].evaluate(function () {
       var target;
       const potentialSelectors: { [key: string]: string } = {
