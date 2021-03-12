@@ -1,37 +1,54 @@
 "use strict";
-const puppeteer = require("puppeteer");
 
-var browser;
-var tickersArray = [];
-var pagesArray = {};
+import { Browser, Page, launch } from "puppeteer";
+var browser: Browser;
 
-async function addTickers(tickers, callbackFunc) {
+//Pages Array
+interface IPagesArray {
+  [key: string]: Page;
+}
+var pagesArray: IPagesArray;
+pagesArray = {};
+
+//Tickers Array
+interface ITickersArray {
+  symbol: string;
+  price: number;
+}
+var tickersArray: ITickersArray[];
+tickersArray = [];
+
+async function addTickers(
+  tickers: Array<string>,
+  callback: (arg0: object) => void
+) {
   //If browser has not been declared, launch it.
   if (browser == undefined) {
-    browser = await puppeteer.launch();
+    browser = await launch();
   }
   //Format the inputted tickers, add them to tickersArray, begin operations.
   for (var i = 0; i < tickers.length; i++) {
-    tickersArray.push({ symbol: tickers[i], price: 0 });
-    startDataFeed(tickersArray[tickersArray.length - 1], callbackFunc);
+    var tickerObject: ITickersArray = { symbol: tickers[i], price: 0 };
+    tickersArray.push(tickerObject);
+    startDataFeed(tickersArray[tickersArray.length - 1], callback);
   }
 }
 
-async function addTicker(ticker, callbackFunc) {
+async function addTicker(ticker: string, callback: (arg0: object) => void) {
   //If browser has not been declared, launch it.
   if (browser == undefined) {
-    browser = await puppeteer.launch();
+    browser = await launch();
   }
 
   //Push the new ticker to tickersArray.
   tickersArray.push({ symbol: ticker, price: 0 });
 
   //Begin operations on the new ticker.
-  startDataFeed(tickersArray[tickersArray.length - 1], callbackFunc);
+  startDataFeed(tickersArray[tickersArray.length - 1], callback);
 }
 
 //Stop data for a specific ticker.
-async function removeTicker(ticker) {
+async function removeTicker(ticker: string) {
   for (var key in pagesArray) {
     if (key == ticker) {
       await pagesArray[key].close();
@@ -42,7 +59,7 @@ async function removeTicker(ticker) {
 }
 
 //Stop data for a list of tickers.
-async function removeTickers(tickers) {
+async function removeTickers(tickers: Array<string>) {
   for (var i = 0; i < tickers.length; i++) {
     removeTicker(tickers[i]);
   }
@@ -56,7 +73,10 @@ async function removeAllTickers() {
   }
 }
 
-async function startDataFeed(ticker, callbackFunc) {
+async function startDataFeed(
+  ticker: { symbol: string; price: number },
+  callback: (arg0: object) => void
+) {
   try {
     //Configure Puppeteer page.
     pagesArray[ticker.symbol] = await browser.newPage();
@@ -78,11 +98,11 @@ async function startDataFeed(ticker, callbackFunc) {
             "#consent-page > div > div > div > form > div.wizard-body > div.actions.couple > button"
           )
         ) {
-          document
-            .querySelector(
-              "#consent-page > div > div > div > form > div.wizard-body > div.actions.couple > button"
-            )
-            .click();
+          var element = document.querySelector(
+            "#consent-page > div > div > div > form > div.wizard-body > div.actions.couple > button"
+          ) as HTMLElement;
+          element.click();
+
           return;
         }
       } catch (e) {
@@ -96,7 +116,7 @@ async function startDataFeed(ticker, callbackFunc) {
     //Evaluate the actual page.
     await pagesArray[ticker.symbol].evaluate(function () {
       var target;
-      const potentialSelectors = {
+      const potentialSelectors: { [key: string]: string } = {
         premarket:
           "#quote-header-info > div.Pos\\(r\\) > div.D\\(ib\\) > p > span",
         regmarket: "#quote-header-info > div.Pos\\(r\\) > div > p > span",
@@ -133,10 +153,14 @@ async function startDataFeed(ticker, callbackFunc) {
   }
 
   //Take action on the observed price mutation.
-  function puppeteerMutationListener(data) {
-    if (ticker.price != data) {
-      ticker.price = data;
-      callbackFunc(ticker);
+  function puppeteerMutationListener(data: string | null) {
+    var parsedData: any = data;
+    parsedData = parsedData.replace(/\,/g, "");
+    parsedData = parseFloat(parsedData);
+
+    if (ticker.price != parsedData) {
+      ticker.price = parsedData;
+      callback(ticker);
     }
   }
 }
