@@ -1,22 +1,11 @@
 "use strict";
 
-import { Browser, Page, launch } from "puppeteer";
+import { Browser, launch } from "puppeteer";
+import { PagesArray, TickerObject, SelectorsArray } from "../types";
+
 var browser: Browser;
-
-//Pages Array
-interface IPagesArray {
-  [key: string]: Page;
-}
-var pagesArray: IPagesArray;
-pagesArray = {};
-
-//Tickers Array
-interface ITickersArray {
-  symbol: string;
-  price: number;
-}
-var tickersArray: ITickersArray[];
-tickersArray = [];
+var pagesArray: PagesArray = {};
+var tickersArray: TickerObject[] = [];
 
 async function addTickers(
   tickers: Array<string>,
@@ -28,7 +17,7 @@ async function addTickers(
   }
   //Format the inputted tickers, add them to tickersArray, begin operations.
   for (var i = 0; i < tickers.length; i++) {
-    var tickerObject: ITickersArray = { symbol: tickers[i], price: 0 };
+    var tickerObject: TickerObject = { symbol: tickers[i], price: 0 };
     tickersArray.push(tickerObject);
     startDataFeed(tickersArray[tickersArray.length - 1], callback);
   }
@@ -74,7 +63,7 @@ async function removeAllTickers() {
 }
 
 async function startDataFeed(
-  ticker: { symbol: string; price: number },
+  ticker: TickerObject,
   callback: (arg0: object) => void
 ) {
   try {
@@ -116,7 +105,7 @@ async function startDataFeed(
     //Evaluate the actual page.
     await pagesArray[ticker.symbol].evaluate(function () {
       var target;
-      const potentialSelectors: { [key: string]: string } = {
+      const potentialSelectors: SelectorsArray = {
         premarket:
           "#quote-header-info > div.Pos\\(r\\) > div.D\\(ib\\) > p > span",
         regmarket: "#quote-header-info > div.Pos\\(r\\) > div > p > span",
