@@ -43,7 +43,7 @@ $ npm install stocksocket
 
 ## Sample Output
 <p align="left">
-  <img src="https://user-images.githubusercontent.com/60011793/109716940-6f147800-7b73-11eb-8991-fc6f414ba6b7.PNG">
+  <img src="https://user-images.githubusercontent.com/60011793/112890922-7876fe80-90a5-11eb-8914-9f2f63223671.PNG">
 </p>
 
 ## Docs
