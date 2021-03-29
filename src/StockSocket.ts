@@ -7,6 +7,12 @@ var browser: Browser;
 var pagesArray: PagesArray = {};
 var tickersArray: TickerObject[] = [];
 
+/**
+ * Starts data stream for multiple stock symbols.
+ *
+ * @param tickers - The array of stock symbols
+ * @param callback - The method that will be passed the price info
+ */
 async function addTickers(
   tickers: Array<string>,
   callback: (arg0: object) => void
@@ -23,20 +29,28 @@ async function addTickers(
   }
 }
 
+/**
+ * Starts data stream for a single ticker
+ *
+ * @param ticker - The stock symbol string
+ * @param callback - The method that will be passed the price info
+ */
 async function addTicker(ticker: string, callback: (arg0: object) => void) {
   //If browser has not been declared, launch it.
   if (browser == undefined) {
     browser = await launch();
   }
-
   //Push the new ticker to tickersArray.
   tickersArray.push({ symbol: ticker, price: 0 });
-
   //Begin operations on the new ticker.
   startDataFeed(tickersArray[tickersArray.length - 1], callback);
 }
 
-//Stop data for a specific ticker.
+/**
+ * Stops data stream for a specified stock symbol
+ *
+ * @param ticker - The stock symbol string
+ */
 async function removeTicker(ticker: string) {
   for (var key in pagesArray) {
     if (key == ticker) {
@@ -47,14 +61,20 @@ async function removeTicker(ticker: string) {
   }
 }
 
-//Stop data for a list of tickers.
+/**
+ * Stops data stream for an array of stock symbols
+ *
+ * @param tickers - The array of stock symbols
+ */
 async function removeTickers(tickers: Array<string>) {
   for (var i = 0; i < tickers.length; i++) {
     removeTicker(tickers[i]);
   }
 }
 
-//Stop data for all tickers.
+/**
+ * Stops data stream for every stock symbol in tickersArray
+ */
 async function removeAllTickers() {
   for (var key in pagesArray) {
     await pagesArray[key].close();
@@ -62,6 +82,17 @@ async function removeAllTickers() {
   }
 }
 
+/**
+ * Method that observes price changes and takes action.
+ *
+ * @remarks
+ * This method inserts a mutation observer on Yahoo and watches for changes
+ * with respect to the inputted ticker parameter. Each stock symbol inside of
+ * tickersArray gets its own headless chromium page opened through puppeteer.
+ *
+ * @param ticker - The stock symbol string
+ * @param callback - The method that will be passed the price info
+ */
 async function startDataFeed(
   ticker: TickerObject,
   callback: (arg0: object) => void
@@ -141,7 +172,11 @@ async function startDataFeed(
     console.log(err);
   }
 
-  //Take action on the observed price mutation.
+  /**
+   * Returns price data using the callback function.
+   *
+   * @param data - The raw data being sent from the mutation observer.
+   */
   function puppeteerMutationListener(data: string | null) {
     var parsedData: any = data;
     parsedData = parsedData.replace(/\,/g, "");
