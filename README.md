@@ -1,8 +1,8 @@
 # Stock Socket
 
-_Blazing Fast, real-time access to yahoo finance stock data._
+_High-Speed, Real-Time access to yahoo finance stock data._
 
-_This module doesn't periodically check for price changes in your tickers -it sends you the price changes the instant they happen._
+_This module doesn't periodically check for price changes in your tickers - it sends you the price changes the instant they happen._
 
 [![npm](https://img.shields.io/npm/v/stocksocket.svg)](https://www.npmjs.com/package/stocksocket)
 [![npm](https://img.shields.io/npm/dm/stocksocket.svg)](https://www.npmjs.com/package/stocksocket)
@@ -36,10 +36,10 @@ $ npm install stocksocket
 
 ## How does it work?
 
-- For each ticker inputted, a single chromium page is opened in headless fashion using Puppeteer.
-- Each page has a [MutationObserver](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver) inserted that checks for price changes on Yahoo.
-- Any mutations in the price are sent back to the function passed by the user (you) using key-value pair format.
-- Since the MutationObserver collects the data, only a single request is sent per ticker for the duration of runtime! In other words, you aren't hassling Yahoo with large amounts of HTTP requests. 
+- Yahoo uses Websockets to transfer data to the client about changes for a given stock.
+- This module opens up its very own Websocket connection with Yahoo.
+- With this socket open, data is received about the ticker (or tickers) that you inputted.
+- As a result, this module is extremely lightweight and fast as it receives the data stream directly, as opposed to Webscraping.
 
 ## Sample Output
 <p align="left">
