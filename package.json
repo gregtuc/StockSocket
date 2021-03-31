@@ -2,8 +2,7 @@
   "name": "stocksocket",
   "version": "1.2.2",
   "description": "Real-time Yahoo Stock Prices",
-  "main": "lib/StockSocket.js",
-  "types": "lib",
+  "main": "src/StockSocket.js",
   "scripts": {
     "build": "tsc -p .",
     "test": "mocha"
@@ -36,15 +35,12 @@
   },
   "homepage": "https://github.com/gregtuc/StockSocket#readme",
   "dependencies": {
-    "puppeteer": "^8.0.0"
+    "protobufjs": "^6.10.2",
+    "ws": "^7.4.4"
   },
   "devDependencies": {
-    "@types/puppeteer": "^5.4.3",
     "assert": "^2.0.0",
-    "chromedriver": "^88.0.0",
     "mocha": "^8.3.0",
-    "request": "^2.88.2",
-    "selenium-webdriver": "^4.0.0-beta.1",
-    "typescript": "^4.2.3"
+    "request": "^2.88.2"
   }
 }
