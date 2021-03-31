@@ -11,7 +11,7 @@ _This module doesn't periodically check for price changes in your tickers -it se
 ```javascript
 const StockSocket = require("stocksocket");
 
-StockSocket.addTickers(["TSLA", "NIO", "NNDM", "ETH-USD"], stockPriceChanged);
+StockSocket.addTicker("TSLA", stockPriceChanged);
 
 function stockPriceChanged(data) {
   //Choose what to do with your data as it comes in.
@@ -43,7 +43,7 @@ $ npm install stocksocket
 
 ## Sample Output
 <p align="left">
-  <img src="https://user-images.githubusercontent.com/60011793/112890922-7876fe80-90a5-11eb-8914-9f2f63223671.PNG">
+  <img src="https://user-images.githubusercontent.com/60011793/113175305-49819980-9219-11eb-9ecd-a2bb9108478a.png">
 </p>
 
 ## Docs
