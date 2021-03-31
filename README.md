@@ -1,8 +1,8 @@
 # Stock Socket
 
-_Blazing Fast, real-time access to yahoo finance stock data._
+_High-Speed, Real-Time access to yahoo finance stock data._
 
-_This module doesn't periodically check for price changes in your tickers -it sends you the price changes the instant they happen._
+_This module doesn't scrape data - it receives data directly from Yahoo via Websocket. This makes it highly reliable, lightweight, and fast._
 
 [![npm](https://img.shields.io/npm/v/stocksocket.svg)](https://www.npmjs.com/package/stocksocket)
 [![npm](https://img.shields.io/npm/dm/stocksocket.svg)](https://www.npmjs.com/package/stocksocket)
@@ -11,7 +11,7 @@ _This module doesn't periodically check for price changes in your tickers -it se
 ```javascript
 const StockSocket = require("stocksocket");
 
-StockSocket.addTickers(["TSLA", "NIO", "NNDM", "ETH-USD"], stockPriceChanged);
+StockSocket.addTicker("TSLA", stockPriceChanged);
 
 function stockPriceChanged(data) {
   //Choose what to do with your data as it comes in.
@@ -36,14 +36,14 @@ $ npm install stocksocket
 
 ## How does it work?
 
-- For each ticker inputted, a single chromium page is opened in headless fashion using Puppeteer.
-- Each page has a [MutationObserver](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver) inserted that checks for price changes on Yahoo.
-- Any mutations in the price are sent back to the function passed by the user (you) using key-value pair format.
-- Since the MutationObserver collects the data, only a single request is sent per ticker for the duration of runtime! In other words, you aren't hassling Yahoo with large amounts of HTTP requests. 
+- Yahoo uses Websockets to transfer data to the client about changes for a given stock.
+- This module opens up its very own Websocket connection with Yahoo.
+- The open socket connection receives a data stream from Yahoo containing stock information.
+- As a result, this module is highly reliable and lightweight.
 
 ## Sample Output
 <p align="left">
-  <img src="https://user-images.githubusercontent.com/60011793/112890922-7876fe80-90a5-11eb-8914-9f2f63223671.PNG">
+  <img src="https://user-images.githubusercontent.com/60011793/113175305-49819980-9219-11eb-9ecd-a2bb9108478a.png">
 </p>
 
 ## Docs
