@@ -38,8 +38,8 @@ $ npm install stocksocket
 
 - Yahoo uses Websockets to transfer data to the client about changes for a given stock.
 - This module opens up its very own Websocket connection with Yahoo.
-- With this socket open, data is received about the ticker (or tickers) that you inputted.
-- As a result, this module is extremely lightweight and fast as it receives the data stream directly, as opposed to Webscraping.
+- The open socket connection receives a data stream from Yahoo containing stock information.
+- As a result, this module is highly reliable and lightweight.
 
 ## Sample Output
 <p align="left">
