@@ -36,7 +36,6 @@ $ npm install stocksocket
 
 ## How does it work?
 
-- 
 - Yahoo Finance uses Websockets to transfer stock data when you open their page on your browser.
 - This module leverages that functionality by opening its own direct WebSocket connection with Yahoo.
 - The WebSocket connection bypasses the need to open your browser (or inefficiently Web-scrape data) and gets direct data.
