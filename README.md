@@ -2,7 +2,7 @@
 
 _High-Speed, Real-Time access to Yahoo Finance stock data._
 
-_This module doesn't scrape data - it receives data directly from Yahoo via Websocket connection. This makes it highly reliable, lightweight, and fast._
+_Reliable, lightweight, and fast. This module opens a Websocket connection with Yahoo and receives direct market data for the stocks of your choice._
 
 [![npm](https://img.shields.io/npm/v/stocksocket.svg)](https://www.npmjs.com/package/stocksocket)
 [![npm](https://img.shields.io/npm/dm/stocksocket.svg)](https://www.npmjs.com/package/stocksocket)
