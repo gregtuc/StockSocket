@@ -1,8 +1,8 @@
 # Stock Socket
 
-_High-Speed, Real-Time access to Yahoo Finance stock data._
+_High-Speed, Real-Time Yahoo Finance stock data._
 
-_Reliable, lightweight, and fast. This module opens a Websocket connection with Yahoo and receives direct market data for the stocks of your choice._
+_This module opens a Websocket connection with Yahoo for reliable, fast, and lightweight market data._
 
 [![npm](https://img.shields.io/npm/v/stocksocket.svg)](https://www.npmjs.com/package/stocksocket)
 [![npm](https://img.shields.io/npm/dm/stocksocket.svg)](https://www.npmjs.com/package/stocksocket)
@@ -36,10 +36,11 @@ $ npm install stocksocket
 
 ## How does it work?
 
-- Yahoo uses Websockets to transfer data to the client about changes for a given stock.
-- This module opens up its very own Websocket connection with Yahoo.
-- The open socket connection receives a data stream from Yahoo containing stock information.
-- As a result, this module is highly reliable and lightweight.
+- 
+- Yahoo Finance uses Websockets to transfer stock data when you open their page on your browser.
+- This module leverages that functionality by opening its own direct WebSocket connection with Yahoo.
+- The WebSocket connection bypasses the need to open your browser (or inefficiently Web-scrape data) and gets direct data.
+- As a result, this module is far more lightweight and quick than previous versions of this module (which used Puppeteer).
 
 ## Sample Output
 <p align="left">
