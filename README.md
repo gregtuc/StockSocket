@@ -1,6 +1,6 @@
-# Stock Socket
+# StockSocket
 
-_High-Speed, Real-Time Yahoo Finance stock data._
+_Real-Time Yahoo Finance Stock data._
 
 _This module opens a Websocket connection with Yahoo for reliable, fast, and lightweight market data._
 
