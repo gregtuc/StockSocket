@@ -48,6 +48,8 @@ $ npm install stocksocket
 
 ## Docs
 
+---
+
 ### addTicker(stockticker, callback)
 _Start data stream for a specific ticker_
 
