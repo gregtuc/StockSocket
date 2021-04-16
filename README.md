@@ -42,12 +42,12 @@ $ npm install stocksocket
 - As a result, this module is far more lightweight and quick than previous versions of this module (which used Puppeteer and inefficient web-scraping).
 
 ## Sample Output
+<p>Pre Market</p>
 <p align="left">
-  <span>Pre Market</span>
   <img src="https://user-images.githubusercontent.com/60011793/115026991-239efa80-9e91-11eb-9c15-46110ef1cf62.png">
 </p>
+<p>Regular Market</p>
 <p align="left">
-  <span>Regular Market</span>
   <img src="https://user-images.githubusercontent.com/60011793/113175305-49819980-9219-11eb-9ecd-a2bb9108478a.png">
 </p>
 
