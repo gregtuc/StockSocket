@@ -54,6 +54,10 @@ $ npm install stocksocket
 <p align="left">
   <img src="https://user-images.githubusercontent.com/60011793/115094248-e23b3900-9eea-11eb-9c52-d7a847066793.png">
 </p>
+<p>Cryptocurrencies</p>
+<p align="left">
+  <img src="https://user-images.githubusercontent.com/60011793/115094363-3e05c200-9eeb-11eb-84ec-2cc982069805.png">
+</p>
 
 ## Docs
 
