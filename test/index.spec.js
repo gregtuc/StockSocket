@@ -7,7 +7,7 @@ describe("Suite of Unit Tests", function () {
   var wsData;
 
   beforeEach(function (done) {
-    this.timeout(10000);
+    this.timeout(20000);
     //Setup
     ws = new WebSocket("wss://streamer.finance.yahoo.com", null, {
       origin: "https://ca.finance.yahoo.com",
@@ -34,7 +34,7 @@ describe("Suite of Unit Tests", function () {
   });
 
   afterEach(function (done) {
-    this.timeout(10000);
+    this.timeout(20000);
     //Cleanup
     console.log("Socket closing...");
     ws.send("close");
@@ -43,7 +43,7 @@ describe("Suite of Unit Tests", function () {
 
   describe("BlackBox", function () {
     it("Checking the type, length, and properties of the data object.", function (done) {
-      this.timeout(10000);
+      this.timeout(20000);
       //Checking type
       expect(wsData).to.be.an("object");
 
@@ -63,7 +63,7 @@ describe("Suite of Unit Tests", function () {
     });
 
     it("Checking the property values of the returned data object.", function (done) {
-      this.timeout(10000);
+      this.timeout(20000);
 
       //Check property values
       expect(wsData["id"]).to.be.equal("TSLA");
