@@ -2,11 +2,11 @@ var WebSocket = require("ws"),
   protobuf = require("../src/__finStreamer-proto"),
   expect = require("chai").expect;
 
-describe("Suite of Unit Tests", function () {
+describe("UT Suite checking Yahoo Socket Connection & Response", function () {
   var ws;
   var wsData;
 
-  beforeEach(function (done) {
+  this.beforeAll(function (done) {
     this.timeout(20000);
     //Setup
     ws = new WebSocket("wss://streamer.finance.yahoo.com", null, {
@@ -14,7 +14,7 @@ describe("Suite of Unit Tests", function () {
     });
     //Open
     ws.on("open", function open() {
-      console.log("worked...");
+      console.log("Socket opened.");
       ws.send('{"subscribe": ["TSLA"]}');
     });
     //Receive
@@ -25,6 +25,7 @@ describe("Suite of Unit Tests", function () {
       wsData = PricingData.toObject(wsData, {
         enums: String,
       });
+      ws.send("close");
       done();
     });
     //Close
@@ -35,22 +36,24 @@ describe("Suite of Unit Tests", function () {
 
   afterEach(function (done) {
     this.timeout(20000);
-    //Cleanup
-    console.log("Socket closing...");
-    ws.send("close");
     done();
   });
 
-  describe("BlackBox", function () {
-    it("Checking the type, length, and properties of the data object.", function (done) {
+  describe("Websocket Connection and Response Tests", function () {
+    it("Checking the data object type", function (done) {
       this.timeout(20000);
-      //Checking type
       expect(wsData).to.be.an("object");
 
-      //Checking for non-empty
+      done();
+    });
+    it("Checking the data object length", function (done) {
+      this.timeout(20000);
       expect(Object.keys(wsData).length).to.be.greaterThan(1);
 
-      //Checking properties
+      done();
+    });
+    it("Checking the data object property keys", function (done) {
+      this.timeout(20000);
       expect(wsData.hasOwnProperty("id"));
       expect(wsData.hasOwnProperty("price"));
       expect(wsData.hasOwnProperty("time"));
@@ -62,9 +65,8 @@ describe("Suite of Unit Tests", function () {
       done();
     });
 
-    it("Checking the property values of the returned data object.", function (done) {
+    it("Checking the data object property values", function (done) {
       this.timeout(20000);
-
       //Check property values
       expect(wsData["id"]).to.be.equal("TSLA");
       expect(wsData["price"]).to.be.greaterThan(1);
