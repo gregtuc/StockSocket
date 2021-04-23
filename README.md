@@ -46,7 +46,7 @@ $ npm install stocksocket
 <p align="left">
   <img src="https://user-images.githubusercontent.com/60011793/115026991-239efa80-9e91-11eb-9c15-46110ef1cf62.png">
 </p>
-**Regular Market (_Contains Real-Time Volume Updates_)** 
+**Regular** **Market** (_Contains Real-Time Volume Updates_)
 <p align="left">
   <img src="https://user-images.githubusercontent.com/60011793/113175305-49819980-9219-11eb-9ecd-a2bb9108478a.png">
 </p>
