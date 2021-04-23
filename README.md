@@ -42,19 +42,19 @@ $ npm install stocksocket
 - As a result, this module is far more lightweight and quick than previous versions of this module (which used Puppeteer and inefficient web-scraping).
 
 ## Sample Output
-**Pre-Market** 
+### Pre-Market
 <p align="left">
   <img src="https://user-images.githubusercontent.com/60011793/115026991-239efa80-9e91-11eb-9c15-46110ef1cf62.png">
 </p>
-**Regular** **Market** (_Contains Real-Time Volume Updates_)
+### Regular Market (_Contains Real-Time Volume Updates_)
 <p align="left">
   <img src="https://user-images.githubusercontent.com/60011793/113175305-49819980-9219-11eb-9ecd-a2bb9108478a.png">
 </p>
-**Post-Market** 
+### Post-Market
 <p align="left">
   <img src="https://user-images.githubusercontent.com/60011793/115094248-e23b3900-9eea-11eb-9c52-d7a847066793.png">
 </p>
-**Cryptocurrencies** 
+### Cryptocurrencies
 <p align="left">
   <img src="https://user-images.githubusercontent.com/60011793/115094363-3e05c200-9eeb-11eb-84ec-2cc982069805.png">
 </p>
