@@ -1,14 +1,19 @@
 "use strict";
-var protobuf = require("./__finStreamer-proto");
-const WebSocket = require("ws");
-var tickersArray = [];
+import protobuf from "./__finStreamer-proto";
+import WebSocket from "ws";
+
+//const WebSocket = require("ws");
+var tickersArray: Array<String> = [];
 
 /**
  * Method that adds an array of tickers to the watchlist
  * @param {String[]} tickers An array of strings
  * @param {*} callback
  */
-async function addTickers(tickers, callback) {
+async function addTickers(
+  tickers: Array<String>,
+  callback: (arg0: object) => void
+) {
   for (var i = 0; i < tickers.length; i++) {
     tickersArray.push(tickers[i]);
   }
@@ -20,7 +25,7 @@ async function addTickers(tickers, callback) {
  * @param {String} ticker A string containing a ticker symbol
  * @param {Function} callback A callback method
  */
-async function addTicker(ticker, callback) {
+async function addTicker(ticker: string, callback: (arg0: object) => void) {
   tickersArray.push(ticker);
   startDataFeed(ticker, callback);
 }
@@ -29,7 +34,7 @@ async function addTicker(ticker, callback) {
  * Method that removes a specific ticker from the watchlist
  * @param {string} ticker A string containing a ticker symbol
  */
-async function removeTicker(ticker) {
+async function removeTicker(ticker: string) {
   for (var i = 0; i < tickersArray.length; i++) {
     if (tickersArray[i] == ticker) {
       tickersArray.splice(i, 1);
@@ -41,7 +46,7 @@ async function removeTicker(ticker) {
  * Method that removes an array of tickers from the watchlist
  * @param {String[]} tickers An array of strings
  */
-async function removeTickers(tickers) {
+async function removeTickers(tickers: Array<String>) {
   for (var i = 0; i < tickers.length; i++) {
     for (var j = 0; j < tickersArray.length; j++) {
       if (tickersArray[j] == tickers[i]) {
@@ -65,7 +70,7 @@ async function removeAllTickers() {
  * @param {Object} input A string or array of strings
  * @param {Function} callback A callback method
  */
-async function startDataFeed(input, callback) {
+async function startDataFeed(input: any, callback: (arg0: object) => void) {
   //Formatting if only one ticker was inputted.
   if (!Array.isArray(input)) {
     input = [input];
@@ -84,9 +89,9 @@ async function startDataFeed(input, callback) {
   });
 
   //Receiving, decoding, and transmitting stock data to callback method.
-  ws.on("message", function incoming(data) {
-    var buffer = base64ToArray(data); // decode from base 64
-    var PricingData = protobuf.quotefeeder.PricingData;
+  ws.on("message", function incoming(data: string) {
+    var buffer: any = base64ToArray(data); // decode from base 64
+    var PricingData: any = protobuf.quotefeeder.PricingData;
     var data = PricingData.decode(buffer); // Decode using protobuff
     data = PricingData.toObject(data, {
       // Convert to a JS object
@@ -102,7 +107,7 @@ async function startDataFeed(input, callback) {
  * Helper function to convert a base 64 string into a bytes array
  * @param {String} base64 a string in base 64
  */
-function base64ToArray(base64) {
+function base64ToArray(base64: string) {
   var binaryString = atob(base64);
   var len = binaryString.length;
   var bytes = new Uint8Array(len);
@@ -116,7 +121,7 @@ function base64ToArray(base64) {
  * Helper function to convert an encoded string into base64
  * @param {String} str An encoded string
  */
-function atob(str) {
+function atob(str: string) {
   return Buffer.from(str, "base64").toString("binary");
 }
 
