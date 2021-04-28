@@ -1,7 +1,7 @@
 "use strict";
-var protobuf = require("./__finStreamer-proto");
+const protobuf = require("./__finStreamer-proto");
 const WebSocket = require("isomorphic-ws");
-var ws = new WebSocket("wss://streamer.finance.yahoo.com");
+const ws = new WebSocket("wss://streamer.finance.yahoo.com");
 var tickersArray = [];
 
 /**
