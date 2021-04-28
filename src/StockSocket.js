@@ -1,7 +1,6 @@
 "use strict";
 const protobuf = require("./__finStreamer-proto");
 const WebSocket = require("isomorphic-ws");
-const ws = new WebSocket("wss://streamer.finance.yahoo.com");
 var tickersArray = [];
 
 /**
@@ -81,11 +80,12 @@ async function startDataFeed(input, callback) {
   }
   const opening_message = '{"subscribe":' + JSON.stringify(input) + "}";
 
-  //Terminate existing socket connection if it exists already
-  if (tickersArray.length > input.length) {
-    ws.send("close");
-    ws = new WebSocket("wss://streamer.finance.yahoo.com");
-  }
+  var ws = new WebSocket("wss://streamer.finance.yahoo.com");
+
+  //Restart socket connection if it exists already.
+  //if (tickersArray.length > input.length) {
+  // ws = new WebSocket("wss://streamer.finance.yahoo.com");
+  //}
 
   //Sending tickers that will receive Websocket information.
   ws.onopen = function open() {
