@@ -35,8 +35,8 @@
   },
   "homepage": "https://github.com/gregtuc/StockSocket#readme",
   "dependencies": {
-    "protobufjs": "^6.10.2",
-    "ws": "^7.4.4"
+    "isomorphic-ws": "^4.0.1",
+    "protobufjs": "^6.10.2"
   },
   "devDependencies": {
     "chai": "^4.3.4",

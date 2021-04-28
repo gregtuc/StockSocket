@@ -1,6 +1,7 @@
 "use strict";
 var protobuf = require("./__finStreamer-proto");
-const WebSocket = require("ws");
+const WebSocket = require("isomorphic-ws");
+const ws = new WebSocket("wss://streamer.finance.yahoo.com");
 var tickersArray = [];
 
 /**
@@ -72,20 +73,15 @@ async function startDataFeed(input, callback) {
   }
   const opening_message = '{"subscribe":' + JSON.stringify(input) + "}";
 
-  //Creating a new Websocket element.
-  const ws = new WebSocket("wss://streamer.finance.yahoo.com", null, {
-    origin: "https://ca.finance.yahoo.com",
-  });
-
   //Sending tickers that will receive Websocket information.
-  ws.on("open", function open() {
+  ws.onopen = function open() {
     console.log("StockSocket has opened a WebSocket Connection with Yahoo.");
     ws.send(opening_message);
-  });
+  };
 
   //Receiving, decoding, and transmitting stock data to callback method.
-  ws.on("message", function incoming(data) {
-    var buffer = base64ToArray(data); // decode from base 64
+  ws.onmessage = function incoming(data) {
+    var buffer = base64ToArray(data.data); // decode from base 64
     var PricingData = protobuf.quotefeeder.PricingData;
     var data = PricingData.decode(buffer); // Decode using protobuff
     data = PricingData.toObject(data, {
@@ -95,7 +91,7 @@ async function startDataFeed(input, callback) {
     if (tickersArray.indexOf(data.id) != -1) {
       callback(data);
     }
-  });
+  };
 }
 
 /**
