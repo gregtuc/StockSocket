@@ -1,7 +1,7 @@
 "use strict";
 var protobuf = require("./__finStreamer-proto");
 const WebSocket = require("isomorphic-ws");
-const ws = new WebSocket("wss://streamer.finance.yahoo.com");
+var ws = new WebSocket("wss://streamer.finance.yahoo.com");
 var tickersArray = [];
 
 /**
@@ -10,7 +10,11 @@ var tickersArray = [];
  * @param {*} callback
  */
 async function addTickers(tickers, callback) {
+  if (!Array.isArray(tickers)) {
+    throw "You must add multiple tickers with the addTickers method.";
+  }
   for (var i = 0; i < tickers.length; i++) {
+    removeTicker(tickers[i]);
     tickersArray.push(tickers[i]);
   }
   startDataFeed(tickers, callback);
@@ -22,6 +26,10 @@ async function addTickers(tickers, callback) {
  * @param {Function} callback A callback method
  */
 async function addTicker(ticker, callback) {
+  if (Array.isArray(ticker)) {
+    throw "You can only add one ticker with the addTickers method.";
+  }
+  removeTicker(ticker);
   tickersArray.push(ticker);
   startDataFeed(ticker, callback);
 }
@@ -73,6 +81,12 @@ async function startDataFeed(input, callback) {
   }
   const opening_message = '{"subscribe":' + JSON.stringify(input) + "}";
 
+  //Terminate existing socket connection if it exists already
+  if (tickersArray.length > input.length) {
+    ws.send("close");
+    ws = new WebSocket("wss://streamer.finance.yahoo.com");
+  }
+
   //Sending tickers that will receive Websocket information.
   ws.onopen = function open() {
     console.log("StockSocket has opened a WebSocket Connection with Yahoo.");
@@ -91,6 +105,11 @@ async function startDataFeed(input, callback) {
     if (tickersArray.indexOf(data.id) != -1) {
       callback(data);
     }
+  };
+
+  //Log if the socket is closed.
+  ws.onclose = function close() {
+    console.log("Socket disconnected.");
   };
 }
 
