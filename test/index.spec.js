@@ -1,4 +1,4 @@
-var WebSocket = require("ws"),
+var WebSocket = require("isomorphic-ws"),
   protobuf = require("../src/__finStreamer-proto"),
   expect = require("chai").expect;
 
@@ -9,17 +9,16 @@ describe("UT Suite checking Yahoo Socket Connection & Response", function () {
   this.beforeAll(function (done) {
     this.timeout(20000);
     //Setup
-    ws = new WebSocket("wss://streamer.finance.yahoo.com", null, {
-      origin: "https://ca.finance.yahoo.com",
-    });
+    ws = new WebSocket("wss://streamer.finance.yahoo.com");
     //Open
-    ws.on("open", function open() {
+    ws.onopen = function open() {
       console.log("Socket opened.");
       ws.send('{"subscribe": ["TSLA"]}');
-    });
+    };
     //Receive
-    ws.on("message", function incoming(data) {
-      var buffer = base64ToArray(data);
+    ws.onmessage = function incoming(data) {
+      console.log(data.data);
+      var buffer = base64ToArray(data.data);
       var PricingData = protobuf.quotefeeder.PricingData;
       wsData = PricingData.decode(buffer);
       wsData = PricingData.toObject(wsData, {
@@ -27,11 +26,11 @@ describe("UT Suite checking Yahoo Socket Connection & Response", function () {
       });
       ws.send("close");
       done();
-    });
+    };
     //Close
-    ws.on("close", function () {
+    ws.onclose = function close() {
       console.log("Socket disconnected.");
-    });
+    };
   });
 
   afterEach(function (done) {

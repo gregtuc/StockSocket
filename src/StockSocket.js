@@ -1,6 +1,6 @@
 "use strict";
-var protobuf = require("./__finStreamer-proto");
-const WebSocket = require("ws");
+const protobuf = require("./__finStreamer-proto");
+const WebSocket = require("isomorphic-ws");
 var tickersArray = [];
 
 /**
@@ -9,7 +9,11 @@ var tickersArray = [];
  * @param {*} callback
  */
 async function addTickers(tickers, callback) {
+  if (!Array.isArray(tickers)) {
+    throw "You must add multiple tickers with the addTickers method.";
+  }
   for (var i = 0; i < tickers.length; i++) {
+    removeTicker(tickers[i]);
     tickersArray.push(tickers[i]);
   }
   startDataFeed(tickers, callback);
@@ -21,6 +25,10 @@ async function addTickers(tickers, callback) {
  * @param {Function} callback A callback method
  */
 async function addTicker(ticker, callback) {
+  if (Array.isArray(ticker)) {
+    throw "You can only add one ticker with the addTickers method.";
+  }
+  removeTicker(ticker);
   tickersArray.push(ticker);
   startDataFeed(ticker, callback);
 }
@@ -72,20 +80,22 @@ async function startDataFeed(input, callback) {
   }
   const opening_message = '{"subscribe":' + JSON.stringify(input) + "}";
 
-  //Creating a new Websocket element.
-  const ws = new WebSocket("wss://streamer.finance.yahoo.com", null, {
-    origin: "https://ca.finance.yahoo.com",
-  });
+  var ws = new WebSocket("wss://streamer.finance.yahoo.com");
+
+  //Restart socket connection if it exists already.
+  //if (tickersArray.length > input.length) {
+  // ws = new WebSocket("wss://streamer.finance.yahoo.com");
+  //}
 
   //Sending tickers that will receive Websocket information.
-  ws.on("open", function open() {
+  ws.onopen = function open() {
     console.log("StockSocket has opened a WebSocket Connection with Yahoo.");
     ws.send(opening_message);
-  });
+  };
 
   //Receiving, decoding, and transmitting stock data to callback method.
-  ws.on("message", function incoming(data) {
-    var buffer = base64ToArray(data); // decode from base 64
+  ws.onmessage = function incoming(data) {
+    var buffer = base64ToArray(data.data); // decode from base 64
     var PricingData = protobuf.quotefeeder.PricingData;
     var data = PricingData.decode(buffer); // Decode using protobuff
     data = PricingData.toObject(data, {
@@ -95,7 +105,12 @@ async function startDataFeed(input, callback) {
     if (tickersArray.indexOf(data.id) != -1) {
       callback(data);
     }
-  });
+  };
+
+  //Log if the socket is closed.
+  ws.onclose = function close() {
+    console.log("Socket disconnected.");
+  };
 }
 
 /**
