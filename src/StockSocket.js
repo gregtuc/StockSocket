@@ -75,15 +75,14 @@ async function removeAllTickers() {
  * @param {Function} callback A callback method
  */
 async function startDataFeed(callback) {
-  //Close existing connections and reopen with all tickers.
+  //Close existing connections and re-open with all tickers.
   if (ws.readyState == 1) {
     ws.send("close");
     ws = new WebSocket("wss://streamer.finance.yahoo.com");
   }
 
+  //Format opening message for socket.
   const opening_message = '{"subscribe":' + JSON.stringify(tickersArray) + "}";
-
-  console.log(opening_message);
 
   //Sending tickers that will receive Websocket information.
   ws.onopen = function open() {
