@@ -1,6 +1,7 @@
 "use strict";
 const protobuf = require("./__finStreamer-proto");
 const WebSocket = require("isomorphic-ws");
+var ws = new WebSocket("wss://streamer.finance.yahoo.com");
 var tickersArray = [];
 
 /**
@@ -16,7 +17,7 @@ async function addTickers(tickers, callback) {
     removeTicker(tickers[i]);
     tickersArray.push(tickers[i]);
   }
-  startDataFeed(tickers, callback);
+  startDataFeed(callback);
 }
 
 /**
@@ -30,7 +31,7 @@ async function addTicker(ticker, callback) {
   }
   removeTicker(ticker);
   tickersArray.push(ticker);
-  startDataFeed(ticker, callback);
+  startDataFeed(callback);
 }
 
 /**
@@ -73,14 +74,16 @@ async function removeAllTickers() {
  * @param {Object} input A string or array of strings
  * @param {Function} callback A callback method
  */
-async function startDataFeed(input, callback) {
-  //Formatting if only one ticker was inputted.
-  if (!Array.isArray(input)) {
-    input = [input];
+async function startDataFeed(callback) {
+  //Close existing connections and reopen with all tickers.
+  if (ws.readyState == 1) {
+    ws.send("close");
+    ws = new WebSocket("wss://streamer.finance.yahoo.com");
   }
-  const opening_message = '{"subscribe":' + JSON.stringify(input) + "}";
 
-  var ws = new WebSocket("wss://streamer.finance.yahoo.com");
+  const opening_message = '{"subscribe":' + JSON.stringify(tickersArray) + "}";
+
+  console.log(opening_message);
 
   //Sending tickers that will receive Websocket information.
   ws.onopen = function open() {
