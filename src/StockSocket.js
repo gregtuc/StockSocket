@@ -82,11 +82,6 @@ async function startDataFeed(input, callback) {
 
   var ws = new WebSocket("wss://streamer.finance.yahoo.com");
 
-  //Restart socket connection if it exists already.
-  //if (tickersArray.length > input.length) {
-  // ws = new WebSocket("wss://streamer.finance.yahoo.com");
-  //}
-
   //Sending tickers that will receive Websocket information.
   ws.onopen = function open() {
     console.log("StockSocket has opened a WebSocket Connection with Yahoo.");
