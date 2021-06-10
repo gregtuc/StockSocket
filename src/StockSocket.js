@@ -77,19 +77,16 @@ function removeAllTickers() {
  * @param {Function} callback A callback method
  */
 function startDataFeed(callback) {
-  //Close existing connections and re-open with all tickers.
   if (ws.readyState == 1) {
     ws.send("close");
     ws = new WebSocket("wss://streamer.finance.yahoo.com");
   }
 
-  //Sending tickers that will receive Websocket information.
   ws.onopen = function open() {
     console.log("StockSocket has opened a WebSocket Connection with Yahoo.");
     ws.send('{"subscribe":' + JSON.stringify(tickersArray) + "}");
   };
 
-  //Receiving, decoding, and transmitting stock data to callback method.
   ws.onmessage = function incoming(data) {
     let decodedData = Ticker.decode(Buffer.from(data.data, "base64")).toJSON();
     if (tickersArray.indexOf(decodedData.id) != -1) {
@@ -97,7 +94,6 @@ function startDataFeed(callback) {
     }
   };
 
-  //Log if the socket is closed.
   ws.onclose = function close() {
     console.log("Socket disconnected.");
   };
