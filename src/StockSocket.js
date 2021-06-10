@@ -11,7 +11,7 @@ var tickersArray = [];
  * @param {String[]} tickers An array of strings
  * @param {*} callback
  */
-async function addTickers(tickers, callback) {
+function addTickers(tickers, callback) {
   if (!Array.isArray(tickers)) {
     throw "You must add multiple tickers with the addTickers method.";
   }
@@ -27,7 +27,7 @@ async function addTickers(tickers, callback) {
  * @param {String} ticker A string containing a ticker symbol
  * @param {Function} callback A callback method
  */
-async function addTicker(ticker, callback) {
+function addTicker(ticker, callback) {
   if (Array.isArray(ticker)) {
     throw "You can only add one ticker with the addTickers method.";
   }
@@ -40,7 +40,7 @@ async function addTicker(ticker, callback) {
  * Method that removes a specific ticker from the watchlist
  * @param {string} ticker A string containing a ticker symbol
  */
-async function removeTicker(ticker) {
+function removeTicker(ticker) {
   for (var i = 0; i < tickersArray.length; i++) {
     if (tickersArray[i] == ticker) {
       tickersArray.splice(i, 1);
@@ -52,7 +52,7 @@ async function removeTicker(ticker) {
  * Method that removes an array of tickers from the watchlist
  * @param {String[]} tickers An array of strings
  */
-async function removeTickers(tickers) {
+function removeTickers(tickers) {
   for (var i = 0; i < tickers.length; i++) {
     for (var j = 0; j < tickersArray.length; j++) {
       if (tickersArray[j] == tickers[i]) {
@@ -65,7 +65,7 @@ async function removeTickers(tickers) {
 /**
  * Method that removes every element from the tickers watchlist
  */
-async function removeAllTickers() {
+function removeAllTickers() {
   for (var i = 0; i < tickersArray.length; i++) {
     tickersArray.splice(i, 1);
   }
@@ -76,20 +76,17 @@ async function removeAllTickers() {
  * @param {Object} input A string or array of strings
  * @param {Function} callback A callback method
  */
-async function startDataFeed(callback) {
+function startDataFeed(callback) {
   //Close existing connections and re-open with all tickers.
   if (ws.readyState == 1) {
     ws.send("close");
     ws = new WebSocket("wss://streamer.finance.yahoo.com");
   }
 
-  //Format opening message for socket.
-  const opening_message = '{"subscribe":' + JSON.stringify(tickersArray) + "}";
-
   //Sending tickers that will receive Websocket information.
   ws.onopen = function open() {
     console.log("StockSocket has opened a WebSocket Connection with Yahoo.");
-    ws.send(opening_message);
+    ws.send('{"subscribe":' + JSON.stringify(tickersArray) + "}");
   };
 
   //Receiving, decoding, and transmitting stock data to callback method.
@@ -111,5 +108,5 @@ module.exports = {
   addTicker,
   removeTicker,
   removeTickers,
-  removeAllTickers,
+  removeAllTickers
 };
