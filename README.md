@@ -44,24 +44,77 @@ $ npm install stocksocket
 
 ## Sample Output
 ### Pre-Market
-<p align="left">
-  <img src="https://user-images.githubusercontent.com/60011793/115026991-239efa80-9e91-11eb-9c15-46110ef1cf62.png">
-</p>
+```
+{
+  id: 'TSLA',
+  price: 610.0977172851562,
+  time: '1623352065000',
+  exchange: 'NMS',
+  quoteType: 'EQUITY',
+  marketHours: 'PRE_MARKET',
+  changePercent: 1.8901244401931763,
+  change: 11.31768798828125,
+  priceHint: '2'
+}
+```
 
 ### Regular Market (Contains Real-Time Volume Updates)
-<p align="left">
-  <img src="https://user-images.githubusercontent.com/60011793/113175305-49819980-9219-11eb-9ecd-a2bb9108478a.png">
-</p>
+```
+{
+  id: 'TSLA',
+  price: 610.0977172851562,
+  time: '1623352065000',
+  exchange: 'NMS',
+  quoteType: 'EQUITY',
+  marketHours: 'REGULAR_MARKET',
+  changePercent: 1.8901244401931763,
+  dayVolume: '21090676',
+  change: 11.31768798828125,
+  priceHint: '2'
+}
+```
 
 ### Post-Market
-<p align="left">
-  <img src="https://user-images.githubusercontent.com/60011793/115094248-e23b3900-9eea-11eb-9c52-d7a847066793.png">
-</p>
+```
+{
+  id: 'TSLA',
+  price: 610.0977172851562,
+  time: '1623352065000',
+  exchange: 'NMS',
+  quoteType: 'EQUITY',
+  marketHours: 'POST_MARKET',
+  changePercent: 1.8901244401931763,
+  change: 11.31768798828125,
+  priceHint: '2'
+}
+```
 
 ### Cryptocurrencies
-<p align="left">
-  <img src="https://user-images.githubusercontent.com/60011793/115094363-3e05c200-9eeb-11eb-84ec-2cc982069805.png">
-</p>
+```
+{
+  id: 'ETH-USD',
+  price: 2465.013916015625,
+  time: '1623352142000',
+  currency: 'USD',
+  exchange: 'CCC',
+  quoteType: 'CRYPTOCURRENCY',
+  marketHours: 'REGULAR_MARKET',
+  changePercent: -4.241476535797119,
+  dayVolume: '29413464064',
+  dayHigh: 2615.832763671875,
+  dayLow: 2463.379150390625,
+  change: -109.18408203125,
+  shortName: 'Ethereum USD',
+  lastSize: '29413464064',
+  priceHint: '2',
+  vol_24hr: '29413464064',
+  volAllCurrencies: '29413464064',
+  fromcurrency: 'ETH',
+  lastMarket: 'CoinMarketCap',
+  circulatingSupply: 116236768,
+  marketcap: 286525260000
+}
+```
 
 ## Docs
 
