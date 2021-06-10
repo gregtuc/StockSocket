@@ -14,12 +14,14 @@ var tickersArray = [];
 function addTickers(tickers, callback) {
   if (!Array.isArray(tickers)) {
     throw "You must add multiple tickers with the addTickers method.";
+  } else {
+    for (var i = 0; i < tickers.length; i++) {
+      if (!tickersArray.includes(tickers[i])) {
+        tickersArray.push(tickers[i]);
+      }
+    }
+    startDataFeed(callback);
   }
-  for (var i = 0; i < tickers.length; i++) {
-    removeTicker(tickers[i]);
-    tickersArray.push(tickers[i]);
-  }
-  startDataFeed(callback);
 }
 
 /**
@@ -30,10 +32,12 @@ function addTickers(tickers, callback) {
 function addTicker(ticker, callback) {
   if (Array.isArray(ticker)) {
     throw "You can only add one ticker with the addTickers method.";
+  } else {
+    if (!tickersArray.includes(ticker)) {
+      tickersArray.push(ticker);
+      startDataFeed(callback);
+    }
   }
-  removeTicker(ticker);
-  tickersArray.push(ticker);
-  startDataFeed(callback);
 }
 
 /**
@@ -66,9 +70,7 @@ function removeTickers(tickers) {
  * Method that removes every element from the tickers watchlist
  */
 function removeAllTickers() {
-  for (var i = 0; i < tickersArray.length; i++) {
-    tickersArray.splice(i, 1);
-  }
+  tickersArray = [];
 }
 
 /**

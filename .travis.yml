@@ -1,8 +1,12 @@
 language: node_js
+before_install:
+  - npm install -g codecov
 node_js:
   - "stable"
 cache:
   directories:
     - node_modules
 script:
+  - istanbul cover ./node_modules/mocha/bin/_mocha --reporter lcovonly -- -R spec
+  - codecov
   - npm test
