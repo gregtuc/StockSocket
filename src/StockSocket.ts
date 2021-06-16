@@ -5,6 +5,7 @@ import WebSocket from "isomorphic-ws";
 const root = protobuf.loadSync(__dirname + "/PricingData.proto");
 const Ticker = root.lookupType("ticker");
 var ws = new WebSocket("wss://streamer.finance.yahoo.com");
+
 var tickersArray: string[] = [];
 
 interface LooseObject {
