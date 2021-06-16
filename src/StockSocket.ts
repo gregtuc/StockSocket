@@ -1,17 +1,22 @@
-const protobuf = require("protobufjs");
+"use strict";
+import protobuf from "protobufjs";
+import WebSocket from "isomorphic-ws";
+
 const root = protobuf.loadSync(__dirname + "/PricingData.proto");
 const Ticker = root.lookupType("ticker");
-
-const WebSocket = require("isomorphic-ws");
 var ws = new WebSocket("wss://streamer.finance.yahoo.com");
-var tickersArray = [];
+var tickersArray: string[] = [];
+
+interface LooseObject {
+  [key: string]: any;
+}
 
 /**
  * Method that adds an array of tickers to the watchlist
  * @param {String[]} tickers An array of strings
  * @param {*} callback
  */
-function addTickers(tickers, callback) {
+function addTickers(tickers: string[], callback: (arg0: object) => void) {
   if (!Array.isArray(tickers)) {
     throw "You must add multiple tickers with the addTickers method.";
   } else {
@@ -29,7 +34,7 @@ function addTickers(tickers, callback) {
  * @param {String} ticker A string containing a ticker symbol
  * @param {Function} callback A callback method
  */
-function addTicker(ticker, callback) {
+function addTicker(ticker: string[], callback: (arg0: object) => void) {
   if (Array.isArray(ticker)) {
     throw "You can only add one ticker with the addTickers method.";
   } else {
@@ -44,7 +49,7 @@ function addTicker(ticker, callback) {
  * Method that removes a specific ticker from the watchlist
  * @param {string} ticker A string containing a ticker symbol
  */
-function removeTicker(ticker) {
+function removeTicker(ticker: string) {
   for (var i = 0; i < tickersArray.length; i++) {
     if (tickersArray[i] == ticker) {
       tickersArray.splice(i, 1);
@@ -56,7 +61,7 @@ function removeTicker(ticker) {
  * Method that removes an array of tickers from the watchlist
  * @param {String[]} tickers An array of strings
  */
-function removeTickers(tickers) {
+function removeTickers(tickers: string[]) {
   for (var i = 0; i < tickers.length; i++) {
     for (var j = 0; j < tickersArray.length; j++) {
       if (tickersArray[j] == tickers[i]) {
@@ -78,7 +83,7 @@ function removeAllTickers() {
  * @param {Object} input A string or array of strings
  * @param {Function} callback A callback method
  */
-function startDataFeed(callback) {
+function startDataFeed(callback: (arg0: object) => void) {
   if (ws.readyState == 1) {
     ws.send("close");
     ws = new WebSocket("wss://streamer.finance.yahoo.com");
@@ -89,7 +94,7 @@ function startDataFeed(callback) {
     ws.send('{"subscribe":' + JSON.stringify(tickersArray) + "}");
   };
 
-  ws.onmessage = function incoming(data) {
+  ws.onmessage = function incoming(data: LooseObject) {
     let decodedData = Ticker.decode(Buffer.from(data.data, "base64")).toJSON();
     if (tickersArray.indexOf(decodedData.id) != -1) {
       callback(decodedData);
@@ -106,5 +111,5 @@ module.exports = {
   addTicker,
   removeTicker,
   removeTickers,
-  removeAllTickers
+  removeAllTickers,
 };
