@@ -1,6 +1,6 @@
 var expect = require("chai").expect;
 var rewire = require('rewire');
-var StockSocket = rewire('../src/StockSocket')
+var StockSocket = rewire('../lib/StockSocket')
 
 describe('Testing the addTicker and removeTicker methods', function () {
   var primaryTicker = "NIO";
