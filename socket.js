@@ -129,7 +129,7 @@ function start(callback) {
 		ws = new WebSocket("wss://streamer.finance.yahoo.com");
 	}
 
-	if (ws.readyState != 1) {
+	if (ws.readyState != WebSocket.OPEN) {
 		userCallback = callback;
 		toggle = 1;
 		activate();
@@ -142,7 +142,7 @@ function start(callback) {
  * Method that terminates the websocket connection.
  */
 function stop() {
-	if (ws.readyState == 1) {
+	if (ws.readyState == WebSocket.OPEN) {
 		toggle = 0;
 		ws.terminate();
 	}
@@ -152,7 +152,7 @@ function stop() {
  * Method that restarts the websocket connection. Doesn't re-open connection if empty watchlist
  */
 function restart() {
-	if (ws.readyState == 1) {
+	if (ws.readyState == WebSocket.OPEN) {
 		toggle = 0;
 		ws.terminate();
 	}
