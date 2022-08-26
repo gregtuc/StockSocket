@@ -31,7 +31,7 @@ function addTicker(ticker, callback) {
 	}
 
 	//If the socket is already open, restart it to account for new tickers
-	if (ws.readyState == 1) {
+	if (ws.readyState == WebSocket.OPEN) {
 		restart();
 	}
 	start(callback);
@@ -46,7 +46,7 @@ function removeTicker(ticker) {
 		tickerCache.del(ticker);
 	}
 	//If the socket is already open, restart it to account for removed tickers
-	if (ws.readyState == 1) {
+	if (ws.readyState == WebSocket.OPEN) {
 		restart();
 	}
 	return;
@@ -72,7 +72,7 @@ async function addTickers(tickers, callback) {
 	}
 
 	//If the socket is already open, restart it to account for new tickers
-	if (ws.readyState == 1) {
+	if (ws.readyState == WebSocket.OPEN) {
 		restart();
 	}
 	start(callback);
@@ -97,7 +97,7 @@ function removeTickers(tickers) {
 		}
 	}
 	//If the socket is already open, restart it to account for removed tickers
-	if (ws.readyState == 1) {
+	if (ws.readyState == WebSocket.OPEN) {
 		restart();
 	}
 	return;
@@ -108,7 +108,7 @@ function removeTickers(tickers) {
  */
 function clear() {
 	tickerCache.flushAll();
-	if (ws.readyState == 1) {
+	if (ws.readyState == WebSocket.OPEN) {
 		restart();
 	}
 }
