@@ -6,7 +6,6 @@ _This module opens a Websocket connection with Yahoo for reliable, fast, and lig
 
 [![npm](https://img.shields.io/npm/v/stocksocket.svg)](https://www.npmjs.com/package/stocksocket)
 [![Build Status](https://travis-ci.org/dwyl/esta.svg?branch=master)](https://www.travis-ci.com/github/gregtuc/StockSocket)
-[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/gregtuc/StockSocket/graphs/commit-activity)
 [![codecov](https://codecov.io/gh/gregtuc/StockSocket/branch/main/graph/badge.svg?token=06QRW20F5P)](https://codecov.io/gh/gregtuc/StockSocket)
 [![npm](https://img.shields.io/npm/dm/stocksocket.svg)](https://www.npmjs.com/package/stocksocket)
 
